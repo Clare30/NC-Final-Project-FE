@@ -1,4 +1,4 @@
-// animal-deck -- REMOVE IMAGE_URL IF ICONS ARE STORED IN A FOLDER ON VSC
+// animal-deck -- REMOVE IMAGE_URL IF ICONS ARE STORED IN A FOLDER ON VSC - FireStore write the ID as the animal name
 
 module.exports = [
   {
