@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Input, Button } from "react-native-elements";
 import { StackScreenProps } from "@react-navigation/stack";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import addNewUser from "../firestoreCalls/users/firestore.users.js";
 
 const auth = getAuth();
 const SignUpScreen = ({ navigation }) => {
@@ -23,7 +24,14 @@ const SignUpScreen = ({ navigation }) => {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, value.email, value.password);
+      const newUser = await createUserWithEmailAndPassword(
+        auth,
+        value.email,
+        value.password
+      );
+      const uid = newUser.user.uid;
+      const email = newUser.user.email;
+      addNewUser(uid, email);
       navigation.navigate("Sign In");
     } catch (error) {
       setValue({
