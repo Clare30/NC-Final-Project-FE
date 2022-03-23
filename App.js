@@ -12,20 +12,22 @@ import Animals from "./screens/Animals";
 import PlayButton from "./screens/PlayButton";
 import Welcome from "./screens/Welcome";
 import SignUpScreen from "./screens/SignUp";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
 // Import the functions you need from the SDKs you need
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Animals />
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <ThemeProvider>
+          <NavigationContainer>
+            <InitialStack />
+          </NavigationContainer>
+        </ThemeProvider>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
-  // return (
-  //   <ThemeProvider>
-  //     <RootNavigation />
-  //   </ThemeProvider>
-  // );
 }
 
 const styles = StyleSheet.create({
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     backgroundColor: "#fff",
-    // alignItems: "center",
+    alignItems: "center",
     justifyContent: "center",
   },
 });
