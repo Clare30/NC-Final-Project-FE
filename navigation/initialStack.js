@@ -10,10 +10,7 @@ const Stack = createStackNavigator();
 export default function InitialStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="Play"
-      >
+      <Stack.Navigator initialRouteName="Play">
         <Stack.Screen name="Play" component={PlayButton} />
         <Stack.Screen name="Route Logic" component={RootNavigation} />
       </Stack.Navigator>

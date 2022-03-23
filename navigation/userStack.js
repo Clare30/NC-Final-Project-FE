@@ -9,11 +9,9 @@ const Drawer = createDrawerNavigator();
 
 export default function UserStack() {
   return (
-    // <NavigationContainer>
     <Drawer.Navigator initialRootName="Home">
       <Drawer.Screen focused="true" name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Login" component={LoginScreen}/>
+      <Drawer.Screen name="Login" component={LoginScreen} />
     </Drawer.Navigator>
-    // </NavigationContainer>
   );
 }
