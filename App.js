@@ -1,7 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { ThemeProvider } from "react-native-elements";
 import "./config/firebase";
+
+import InitialStack from "./navigation/initialStack";
+
 
 import RootNavigation from "./navigation";
 import "./config/firestore";
@@ -10,7 +12,7 @@ import "./config/firestore";
 export default function App() {
   return (
     <ThemeProvider>
-      <RootNavigation />;
+      <InitialStack />
     </ThemeProvider>
   );
 }
