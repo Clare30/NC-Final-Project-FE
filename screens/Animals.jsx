@@ -1,5 +1,5 @@
-import { Text, View, Image } from "react-native";
-import React, { Component, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
 import AnimalCard from "../Components/AnimalCard";
 
 export default function Animals() {
@@ -32,13 +32,36 @@ export default function Animals() {
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}>
+    <View style={styles.control}>
       <Text>Animals</Text>
-      <View>
-        {animals.map((animal) => {
-          return <AnimalCard key={animal.name} animal={animal} />;
-        })}
-      </View>
+
+      {animals.map((animal) => {
+        return <AnimalCard key={animal.name} animal={animal} />;
+      })}
     </View>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 20,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  controls: {
+    flex: 1,
+  },
+
+  control: {
+    marginTop: 10,
+  },
+
+  error: {
+    marginTop: 10,
+    padding: 10,
+    color: "#fff",
+    backgroundColor: "#D54826FF",
+  },
+});
