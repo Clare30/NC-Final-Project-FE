@@ -4,7 +4,6 @@ import "./config/firebase";
 
 import InitialStack from "./navigation/initialStack";
 
-
 import RootNavigation from "./navigation";
 import "./config/firestore";
 // Import the functions you need from the SDKs you need
