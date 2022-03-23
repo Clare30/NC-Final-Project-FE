@@ -8,13 +8,9 @@ const Drawer = createDrawerNavigator();
 
 export default function UserStack() {
   return (
-
-    <NavigationContainer>
-      <Drawer.Navigator initialRootName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Animals" component={Animals} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-
+    <Drawer.Navigator initialRootName="Home">
+      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Animals" component={Animals} />
+    </Drawer.Navigator>
   );
 }
