@@ -23,20 +23,3 @@ export default function Animals() {
     </View>
   );
 }
-
-{
-  /* <div>
-           {articles.map((article)=> {
-              return (           
-               <section className="article-card-style" key={article.article_id} onClick={() => navigate(`${article.article_id}`)}> 
-               {article.article_id}
-                  <p>{article.topic}</p> 
-                  <p>{article.author}</p>
-                  <p>{article.title}</p>
-                  <CreatedAt date={article.created_at} />
-                  <p>{article.votes}</p>
-                </section>
-              )
-            })}
-          </div> */
-}
