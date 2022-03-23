@@ -1,10 +1,12 @@
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import { ImageBackground, Text, Image, View } from "react-native-web";
-import * as splashMainBackground from "../assets/farm.jpg";
+import { useAuthentication } from "../utils/hooks/useAuthentication";
+import * as splashMainBackground from "../assets/background.png";
 import * as playButton from "../assets/playButton.png";
 
 const PlayButton = ({ navigation }) => {
+  const { user } = useAuthentication();
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -14,7 +16,7 @@ const PlayButton = ({ navigation }) => {
       >
         <Pressable
           onPress={() => {
-            navigation.navigate("Welcome");
+            navigation.navigate("Route Logic");
           }}
         >
           <Image source={playButton} style={styles.playButton}></Image>
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 200,
     width: 200,
-    alignSelf: "center",
+    marginLeft: 30,
   },
 });
 export default PlayButton;
