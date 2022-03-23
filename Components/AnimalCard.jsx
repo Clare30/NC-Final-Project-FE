@@ -1,12 +1,27 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
-import animalImages from '../graphics/animals'
+import { View, Text, Image } from "react-native";
+import React, { useState } from "react";
+import animalImages from "../graphics/animals";
+import FunFacts from "./FunFacts";
 
-export default function AnimalCard({animal}) {
+export default function AnimalCard({ animal }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <View>
+    <View
+      onStartShouldSetResponder={() => {
+        setModalVisible(true);
+      }}
+    >
       <Text>{animal.name}</Text>
-      <Image  style={{width: 150, height: 150}} source={animalImages[animal.name]}/>
+      <Image
+        style={{ width: 150, height: 150 }}
+        source={animalImages[animal.name]}
+      />
+      <FunFacts
+        animal={animal}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+      />
     </View>
-  )
+  );
 }
