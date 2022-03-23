@@ -1,15 +1,18 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { ThemeProvider } from "react-native-elements";
 import "./config/firebase";
-import RootNavigation from "./navigation";
 
+import InitialStack from "./navigation/initialStack";
+
+
+import RootNavigation from "./navigation";
+import "./config/firestore";
 // Import the functions you need from the SDKs you need
 
 export default function App() {
   return (
     <ThemeProvider>
-      <RootNavigation />;
+      <InitialStack />
     </ThemeProvider>
   );
 }
