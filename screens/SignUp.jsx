@@ -24,11 +24,7 @@ const SignUpScreen = ({ navigation }) => {
     }
 
     try {
-      const newUser = await createUserWithEmailAndPassword(
-        auth,
-        value.email,
-        value.password
-      );
+      const newUser = await createUserWithEmailAndPassword(auth, value.email, value.password);
       const uid = newUser.user.uid;
       const email = newUser.user.email;
       addNewUser(uid, email);
@@ -80,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     backgroundColor: "#fff",
-    alignItems: "center",
+    // alignItems: "center",
     justifyContent: "center",
   },
 

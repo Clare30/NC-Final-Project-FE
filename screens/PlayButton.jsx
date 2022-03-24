@@ -1,11 +1,9 @@
 import React from "react";
-import { Pressable, StyleSheet, ImageBackground, Text, Image, View } from "react-native";
-import { useAuthentication } from "../utils/hooks/useAuthentication";
+import { Pressable, StyleSheet, ImageBackground, Image, View } from "react-native";
 import splashMainBackground from "../assets/background.png";
 import playButton from "../assets/playButton.png";
 
 const PlayButton = ({ navigation }) => {
-  const { user } = useAuthentication();
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.splashBackground} resizeMode="cover" source={splashMainBackground}>
@@ -33,7 +31,6 @@ const styles = StyleSheet.create({
   },
 
   playButton: {
-    // flex: 0.51,
     height: 200,
     width: 200,
     marginRight: 100,
