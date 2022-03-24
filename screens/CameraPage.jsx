@@ -1,13 +1,10 @@
 import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, Dimensions, Button } from "react-native";
 import { Camera } from "expo-camera";
-import * as MediaLibrary from "expo-media-library";
-
 import { useEffect, useState } from "react/cjs/react.development";
 import CameraPopup from "../Components/CameraPopup";
 
-export default function CameraPage() {
+function CameraPage({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
-  const [isFocused, setIsFocused] = useState(true);
   const [imageUri, setImageUri] = useState(null);
   const [camera, setCamera] = useState(null);
   const [cameraModalVisible, setCameraModalVisible] = useState(false);
@@ -40,43 +37,29 @@ export default function CameraPage() {
 
   return (
     <SafeAreaView>
-      {isFocused && (
-        <Camera
-          style={styles.camera}
-          type={type}
-          //ref causes an error when working with live code so you will have to restart your connection to the app
-          //Not yet found an alternative that works
-          ref={setCamera}
-        >
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
+      <Camera
+        style={styles.camera}
+        type={type}
+        //ref causes an error when working with live code so you will have to restart your connection to the app
+        //Not yet found an alternative that works
+        ref={setCamera}
+      >
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              setType(Camera.Constants.Type.back);
+            }}
+          >
+            <Button
+              title="📸 Take picture 📸"
               onPress={() => {
-                setType(Camera.Constants.Type.back);
+                snapPhoto();
               }}
-            >
-              <Button
-                title="📸 Take picture 📸"
-                onPress={() => {
-                  snapPhoto();
-                }}
-              ></Button>
-            </TouchableOpacity>
-          </View>
-        </Camera>
-      )}
-      <Button
-        title="unmount camera"
-        onPress={() => {
-          setIsFocused(false);
-        }}
-      ></Button>
-      <Button
-        title="mount camera"
-        onPress={() => {
-          setIsFocused(true);
-        }}
-      ></Button>
+            ></Button>
+          </TouchableOpacity>
+        </View>
+      </Camera>
 
       <CameraPopup cameraModalVisible={cameraModalVisible} setCameraModalVisible={setCameraModalVisible} uri={imageUri} />
     </SafeAreaView>
@@ -113,3 +96,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default CameraPage;
