@@ -34,7 +34,7 @@ export default function BadgeCard({ count }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: "row",
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
