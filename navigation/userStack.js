@@ -1,6 +1,5 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-
 import HomeScreen from "../screens/Home";
 import Animals from "../screens/Animals";
 
