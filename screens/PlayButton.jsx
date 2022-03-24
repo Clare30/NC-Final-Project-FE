@@ -3,7 +3,6 @@ import { Pressable, StyleSheet, ImageBackground, Image, View } from "react-nativ
 import splashMainBackground from "../assets/background.png";
 import playButton from "../assets/playButton.png";
 
-
 const PlayButton = ({ navigation }) => {
   return (
     <View style={styles.container}>
