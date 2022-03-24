@@ -26,8 +26,7 @@ const SignUpScreen = ({ navigation }) => {
     try {
       const newUser = await createUserWithEmailAndPassword(auth, value.email, value.password);
       const uid = newUser.user.uid;
-      const email = newUser.user.email;
-      addNewUser(uid, email);
+      addNewUser(uid);
       navigation.navigate("Sign In");
     } catch (error) {
       setValue({
