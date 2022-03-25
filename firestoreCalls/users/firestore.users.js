@@ -30,11 +30,11 @@ function addNewUser(uid) {
     };
     // Add a new document in collection "users" with title uid
     await setDoc(
-      doc(db, "users-animals", `${uid}`, "animals", "counts"),
+      doc(db, "users", `${uid}`, "animals", "counts"),
       countsData
     );
     await setDoc(
-      doc(db, "users-animals", `${uid}`, "animals", "photos"),
+      doc(db, "users", `${uid}`, "animals", "photos"),
       photosData
     );
   }
