@@ -1,8 +1,17 @@
 import { View, Text, Modal, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { Button, Image } from "react-native-elements";
+import postPhoto from "../firestoreCalls/users/firestore.postPhoto";
+import { useAuthentication } from "../utils/hooks/useAuthentication";
 
-export default function CameraPopup({ setCameraModalVisible, cameraModalVisible, uri }) {
+export default function CameraPopup({
+  setCameraModalVisible,
+  cameraModalVisible,
+  uri,
+  base64,
+}) {
+  const { user } = useAuthentication();
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -15,10 +24,16 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
       >
         <View style={styles.modalView}>
           <Text>CameraPopup</Text>
-          {uri && <Image style={{ width: 150, height: 150 }} source={{ uri: uri }} />}
+          {uri && (
+            <Image style={{ width: 150, height: 150 }} source={{ uri: uri }} />
+          )}
           <Pressable
             onPress={() => {
-              //SAVE IMAGE FUNCTION HERE
+              postPhoto(user.uid, uri)
+                .then(() => {
+                  console.log("hello");
+                })
+                .catch((err) => console.log(err));
             }}
           >
             <Text>✅</Text>

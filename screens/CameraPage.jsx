@@ -1,4 +1,12 @@
-import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, Dimensions, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  Button,
+} from "react-native";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 
@@ -9,6 +17,7 @@ export default function CameraPage() {
   const [hasPermission, setHasPermission] = useState(null);
   const [isFocused, setIsFocused] = useState(true);
   const [imageUri, setImageUri] = useState(null);
+  const [base64, setBase64] = useState(null);
   const [camera, setCamera] = useState(null);
   const [cameraModalVisible, setCameraModalVisible] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -28,11 +37,17 @@ export default function CameraPage() {
   }
   async function snapPhoto() {
     if (camera) {
-      const options = { quality: 1, base64: true, fixOrientation: true, exif: true };
+      const options = {
+        quality: 1,
+        base64: true,
+        fixOrientation: true,
+        exif: true,
+      };
       await camera.takePictureAsync(options).then(async (photo) => {
         //This forces the images orientation to protrait (exif is the image data)
         photo.exif.Orientation = 1;
         setImageUri(photo.uri);
+        setBase64(photo.base64);
         setCameraModalVisible(true);
       });
     }
@@ -78,7 +93,12 @@ export default function CameraPage() {
         }}
       ></Button>
 
-      <CameraPopup cameraModalVisible={cameraModalVisible} setCameraModalVisible={setCameraModalVisible} uri={imageUri} />
+      <CameraPopup
+        cameraModalVisible={cameraModalVisible}
+        setCameraModalVisible={setCameraModalVisible}
+        uri={imageUri}
+        base64={base64}
+      />
     </SafeAreaView>
   );
 }
