@@ -1,37 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
-import getAnimalsByUserId from "../firestoreCalls/users/firestore.animalsByUser";
-import { Text, View } from "react-native";
+import { Text, View, Image, Modal, Pressable, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
 
-export default function SingleAnimalGalleryCard({ animal, currentUser }) {
-  const [animalGallery, setAnimalGallery] = useState([]);
-  // const { user } = useAuthentication();
-  // const auth = getAuth();
-  // let currentUser;
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     currentUser = user;
-  //     console.log(currentUser);
-  //   }
-  // });
-  console.log("in single page");
-  useEffect(() => {
-    if (currentUser) {
-      console.log("here is current user", currentUser);
-      getAnimalsByUserId(currentUser)
-        .then((data) => {
-          console.log("data from get req", data);
-          console.log("animal", animal);
-          return data.filter((animalItem) => animalItem.name === animal.name);
-        })
-        .then((filtered) => {
-          setAnimalGallery(filtered);
-          console.log("animal gallery", animalGallery);
-        });
+export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const { user } = useAuthentication();
+  const auth = getAuth();
+  let currentUser;
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser = user;
     }
-  }, []);
+  });
 
   // useEffect(() => {
   //   getAnimalsByUserId(currentUser).then((data) => {
@@ -41,16 +24,73 @@ export default function SingleAnimalGalleryCard({ animal, currentUser }) {
 
   // console.log("animal gallery", animalGallery);
 
+  console.log(animalUrls);
+  console.log(animalName);
   return (
     <View>
       <Card>
-        {/* <Text>
-          {animal.name}: {animal.count}
-        </Text> */}
-        {animalGallery.map((animalPic) => {
-          return <Image source={animalPic}></Image>;
+        <Text>
+          {animalName}: {animalUrls.length}
+        </Text>
+
+        {animalUrls.map((animalPic, index) => {
+          return (
+            <View key={index}>
+              <Pressable
+                style={{ width: 150, height: 150 }}
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+              >
+                <Image
+                  source={animalPic}
+                  style={{ width: 150, height: 150 }}
+                ></Image>
+              </Pressable>
+
+              <Modal
+                key={index}
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  Alert.alert("Modal has been closed.");
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <View style={styles.modalView}>
+                  <Pressable
+                    onPress={() => {
+                      setModalVisible(false);
+                    }}
+                  >
+                    <Text>X</Text>
+                  </Pressable>
+                  <Image
+                    source={animalPic}
+                    style={{ width: 150, height: 150 }}
+                  ></Image>
+                </View>
+              </Modal>
+            </View>
+          );
         })}
       </Card>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+});
