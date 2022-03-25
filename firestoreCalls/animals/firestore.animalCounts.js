@@ -3,7 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 
 const getAnimalCounts = (user) => {
   const docRef = doc(db, "users-animals", `${user.uid}`, "animals", "counts");
-  getDoc(docRef).then((res) => {
+  return getDoc(docRef).then((res) => {
     return res.data();
   });
 };
