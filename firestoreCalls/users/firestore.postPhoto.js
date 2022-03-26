@@ -1,5 +1,8 @@
+import { arrayUnion, doc, increment, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import db from "../../config/firestore";
 import animals from "../../graphics/animals";
+
 const testData = {
   image_url:
     "https://firebasestorage.googleapis.com/v0/b/animon-c914f.appspot.com/o/photos%2FGrWhwew1tPP6cEtUUqSGPqBjn4H2%2F1648224143330.jpg?alt=media&token=a0126739-c134-4c22-bd2f-262acfd71529",
@@ -70,8 +73,78 @@ const testData = {
     },
   ],
 };
-export default async function postPhoto(uid, uri, base64) {
-  const testing = true;
+export default async function postPhoto(uid, uri, base64, animalCounts, setAnimalCounts) {
+  const testing = false;
+
+  const uploadAndGetURL = async (uid, uri) => {
+    const storage = getStorage();
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const storageRef = ref(storage, `photos/${uid}/${Date.now()}.jpg`);
+
+    // 'file' comes from the Blob or File API
+    const uploadedImage = await uploadBytes(storageRef, blob);
+    return await getDownloadURL(storageRef);
+  };
+
+  const getImageTags = async (base64) => {
+    let body = JSON.stringify({
+      requests: [
+        {
+          features: [{ type: "LABEL_DETECTION", maxResults: 10 }],
+          image: {
+            content: base64,
+          },
+        },
+      ],
+    });
+    let response = await fetch("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDNpGP52g4D0eVBHXmohzglMLMk1qUvhVc", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: body,
+    });
+
+    return await response.json();
+  };
+
+  const checkMatch = (imageTags) => {
+    const animalNames = Object.keys(animals);
+    let animalName = null;
+    for (let i = 0; i < imageTags.responses[0].labelAnnotations.length; i++) {
+      if (animalNames.includes(imageTags.responses[0].labelAnnotations[i].description.toLowerCase())) {
+        animalName = imageTags.responses[0].labelAnnotations[i].description.toLowerCase();
+        break;
+      }
+    }
+    return animalName;
+  };
+
+  const postAnimal = async (animalName, imageURL) => {
+    const animalNameLower = animalName.toLowerCase();
+    const updatingObjCounts = { total_count: increment(1) };
+    updatingObjCounts[animalNameLower] = increment(1);
+    const userDocCounts = doc(db, "users", uid, "animals", "counts");
+    //Optimistic rendering
+    setAnimalCounts((currentCount) => {
+      const copyObj = { ...currentCount };
+      copyObj[animalNameLower]++;
+      copyObj.total_count ? copyObj.total_count++ : (copyObj.total_count = 1);
+      return copyObj;
+    });
+    updateDoc(userDocCounts, updatingObjCounts);
+    const userDocPhotos = doc(db, "users", uid, "animals", "photos");
+    const updatingObjPhotos = {};
+    updatingObjPhotos[animalNameLower] = arrayUnion(imageURL);
+    updateDoc(userDocPhotos, updatingObjPhotos);
+  };
+
+  const giveUserTheInfo = (animalName) => {
+    console.log(animalName);
+  };
+
   //If testing is false will run actual code
   if (!testing) {
     //Give an uploading screen here
@@ -79,12 +152,12 @@ export default async function postPhoto(uid, uri, base64) {
     const animalName = await getImageTags(base64).then((imageTags) => {
       const animalName = checkMatch(imageTags);
       //Display which animal it is to the user (Function to be written)
-      giveUserTheInfo();
+      giveUserTheInfo(animalName);
       return animalName;
     });
     if (animalName) {
       const imageURL = await uploadAndGetURL(uid, uri);
-      postAnimal(animalName, imageURL);
+      postAnimal(animalName, imageURL, animalCounts);
     } else {
       console.log("Must be rock");
     }
@@ -102,63 +175,8 @@ export default async function postPhoto(uid, uri, base64) {
       //Handle animal not found
       console.log("not found");
     } else {
-      postAnimal(animalName, image_url);
+      postAnimal(animalName, image_url, animalCounts);
       //Handle the animal being found
     }
   }
 }
-
-const uploadAndGetURL = async (uid, uri) => {
-  const storage = getStorage();
-  const response = await fetch(uri);
-  const blob = await response.blob();
-  const storageRef = ref(storage, `photos/${uid}/${Date.now()}.jpg`);
-
-  // 'file' comes from the Blob or File API
-  const uploadedImage = await uploadBytes(storageRef, blob);
-  return await getDownloadURL(storageRef);
-};
-
-const getImageTags = async (base64) => {
-  let body = JSON.stringify({
-    requests: [
-      {
-        features: [{ type: "LABEL_DETECTION", maxResults: 10 }],
-        image: {
-          content: base64,
-        },
-      },
-    ],
-  });
-  let response = await fetch("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDNpGP52g4D0eVBHXmohzglMLMk1qUvhVc", {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-    body: body,
-  });
-
-  return await response.json();
-};
-
-const checkMatch = (imageTags) => {
-  const animalNames = Object.keys(animals);
-  let animalName = null;
-  for (let i = 0; i < imageTags.responses[0].labelAnnotations.length; i++) {
-    if (animalNames.includes(imageTags.responses[0].labelAnnotations[i].description.toLowerCase())) {
-      animalName = imageTags.responses[0].labelAnnotations[i].description.toLowerCase();
-      break;
-    }
-  }
-  return animalName;
-};
-
-const postAnimal = (animalName, imageURL) => {
-  console.log(imageURL);
-  console.log(animalName);
-};
-
-const giveUserTheInfo = (animalName) => {
-  console.log(animalName);
-};
