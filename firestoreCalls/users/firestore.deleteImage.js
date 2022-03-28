@@ -5,9 +5,7 @@ const deleteImage = async (user, imageUrl, animalName) => {
   const removing = {};
 
   removing[animalName] = arrayRemove(imageUrl);
-
   const docRef = doc(db, "users", user.uid, "animals", "photos");
-
   return await updateDoc(docRef, removing);
 };
 

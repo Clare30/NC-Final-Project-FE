@@ -2,53 +2,47 @@ import React, { useEffect, useState } from "react";
 import { Text, View, ScrollView } from "react-native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import getAnimalCounts from "../firestoreCalls/animals/firestore.animalCounts";
+import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import getAnimalsByUserId from "../firestoreCalls/users/firestore.animalsByUser";
 import SingleAnimalGalleryCard from "../Components/SingleAnimalGalleryCard";
+import { useAuthentication } from "../utils/hooks/useAuthentication";
 
 const GalleryPage = () => {
   const [animals, setAnimals] = useState([]);
   const [animalGallery, setAnimalGallery] = useState([]);
   const auth = getAuth();
-  let currentUser;
+const {user} = useAuthentication()
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      currentUser = user;
-    }
-  });
 
   useEffect(() => {
-    if (currentUser) {
-      getAnimalsByUserId(currentUser).then((data) => {
-        setAnimalGallery(data);
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    getAnimalCounts(currentUser).then((data) => {
+    if(user){
+    getAnimalsByUserId(user).then((data) => {
+      setAnimalGallery(data);
+    });
+    getAnimalCounts(user).then((data) => {
       const allCounts = Object.entries(data).filter(
         (arr) => "total_count" !== arr[0]
       );
       setAnimals(allCounts);
     });
-  }, []);
+  }
+  }, [user]);
 
   return (
+   
     <View>
-      <ScrollView>
+       {user && <ScrollView>
         {animals.map((animal) => {
           return (
             <SingleAnimalGalleryCard
               key={animal[0]}
               animalName={animal[0]}
-              animalUrls={animalGallery[animal[0]]}
-              currentUser={currentUser}
+              animalUrlList={animalGallery[animal[0]]}
+              user={user}
             />
           );
         })}
-      </ScrollView>
+      </ScrollView> }
     </View>
   );
 };

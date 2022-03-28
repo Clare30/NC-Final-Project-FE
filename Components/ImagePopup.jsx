@@ -3,7 +3,7 @@ import { Text, View, Image, Modal, Pressable, StyleSheet } from "react-native";
 import deleteImage from "../firestoreCalls/users/firestore.deleteImage";
 import SingleAnimalGalleryCard from "./SingleAnimalGalleryCard";
 
-export const ImagePopup = ({ animalUrl, index, currentUser, animalName }) => {
+export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
@@ -15,7 +15,7 @@ export const ImagePopup = ({ animalUrl, index, currentUser, animalName }) => {
           setModalVisible(true);
         }}
       >
-        <Image source={{ uri: animalUrl }} style={styles.image}></Image>
+        <Image source={{ uri: imageUrl }} style={styles.image}></Image>
       </Pressable>
 
       <Modal
@@ -49,7 +49,13 @@ export const ImagePopup = ({ animalUrl, index, currentUser, animalName }) => {
               <Text>Are you sure you want to delete image?</Text>
               <Pressable
                 onPress={() => {
-                  deleteImage(user, imageUrl, animalName);
+                  // console.log(user)
+                  deleteImage(user, imageUrl, animalName)
+                  setAnimalUrls((animalUrls)=>{
+                    const copyUrls = [...animalUrls]
+                    copyUrls.splice(index, 1)
+                    return copyUrls
+                  })
                   setDeleteModalVisible(false);
                 }}
               >
@@ -68,14 +74,14 @@ export const ImagePopup = ({ animalUrl, index, currentUser, animalName }) => {
 
           <Pressable
             onPress={() => {
-              d;
+              
               setDeleteModalVisible(true);
             }}
           >
             <Text>Delete Image</Text>
           </Pressable>
 
-          <Image source={{ uri: animalUrl }} style={styles.image}></Image>
+          <Image source={{ uri: imageUrl }} style={styles.image}></Image>
         </View>
       </Modal>
     </View>
