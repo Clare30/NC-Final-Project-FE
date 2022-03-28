@@ -10,7 +10,7 @@ const testData = {
     {
       labelAnnotations: [
         {
-          description: "Frog",
+          description: "frog",
           mid: "/m/09ld4",
           score: 0.920323,
           topicality: 0.920323,
@@ -81,7 +81,7 @@ export default async function postPhoto(
   setAnimalCounts,
   setIsMatch
 ) {
-  const testing = true;
+  const testing = false;
 
   const uploadAndGetURL = async (uid, uri) => {
     const storage = getStorage();
@@ -116,7 +116,6 @@ export default async function postPhoto(
         body: body,
       }
     );
-
     return await response.json();
   };
 
@@ -175,6 +174,7 @@ export default async function postPhoto(
       postAnimal(animalName, imageURL, animalCounts);
     } else {
       console.log("Must be rock");
+      setIsMatch(null);
     }
 
     //this is run when testing it true

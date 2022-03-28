@@ -23,7 +23,6 @@ export default function CameraPopup({
   const [isMatch, setIsMatch] = useState(false);
   const { user } = useAuthentication();
   const { animalCounts, setAnimalCounts } = useContext(AnimalCountContext);
-
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -35,7 +34,19 @@ export default function CameraPopup({
           setIsMatch(false);
         }}
       >
-        {isMatch ? (
+        {isMatch === null ? (
+          <View style={styles.animalView}>
+            <Pressable
+              onPress={() => {
+                setCameraModalVisible(false);
+                setIsMatch(false);
+              }}
+            >
+              <Text>❌</Text>
+            </Pressable>
+            <Text>No Match</Text>
+          </View>
+        ) : isMatch ? (
           <View style={styles.animalView}>
             <Pressable
               onPress={() => {
@@ -65,7 +76,8 @@ export default function CameraPopup({
                       base64,
                       animalCounts,
                       setAnimalCounts,
-                      setIsMatch
+                      setIsMatch,
+                      setIsLoading
                     )
                       .then(() => {
                         setIsLoading(false);
