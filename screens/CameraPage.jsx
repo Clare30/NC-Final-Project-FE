@@ -6,6 +6,7 @@ import CameraPopup from "../Components/CameraPopup";
 function CameraPage({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [imageUri, setImageUri] = useState(null);
+  const [base64, setBase64] = useState(null);
   const [camera, setCamera] = useState(null);
   const [cameraModalVisible, setCameraModalVisible] = useState(false);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -25,11 +26,17 @@ function CameraPage({ navigation }) {
   }
   async function snapPhoto() {
     if (camera) {
-      const options = { quality: 1, base64: true, fixOrientation: true, exif: true };
+      const options = {
+        quality: 1,
+        base64: true,
+        fixOrientation: true,
+        exif: true,
+      };
       await camera.takePictureAsync(options).then(async (photo) => {
         //This forces the images orientation to protrait (exif is the image data)
         photo.exif.Orientation = 1;
         setImageUri(photo.uri);
+        setBase64(photo.base64);
         setCameraModalVisible(true);
       });
     }
@@ -61,7 +68,7 @@ function CameraPage({ navigation }) {
         </View>
       </Camera>
 
-      <CameraPopup cameraModalVisible={cameraModalVisible} setCameraModalVisible={setCameraModalVisible} uri={imageUri} />
+      <CameraPopup cameraModalVisible={cameraModalVisible} setCameraModalVisible={setCameraModalVisible} uri={imageUri} base64={base64} />
     </SafeAreaView>
   );
 }

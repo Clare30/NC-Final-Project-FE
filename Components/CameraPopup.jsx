@@ -1,8 +1,14 @@
 import { View, Text, Modal, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { Button, Image } from "react-native-elements";
+import postPhoto from "../firestoreCalls/users/firestore.postPhoto";
+import { useAuthentication } from "../utils/hooks/useAuthentication";
+import { useContext } from "react";
+import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 
-export default function CameraPopup({ setCameraModalVisible, cameraModalVisible, uri }) {
+export default function CameraPopup({ setCameraModalVisible, cameraModalVisible, uri, base64 }) {
+  const { user } = useAuthentication();
+  const { animalCounts, setAnimalCounts } = useContext(AnimalCountContext);
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -18,18 +24,22 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
           {uri && <Image style={{ width: 150, height: 150 }} source={{ uri: uri }} />}
           <Pressable
             onPress={() => {
-              //SAVE IMAGE FUNCTION HERE
+              postPhoto(user.uid, uri, base64, animalCounts, setAnimalCounts)
+                .then(() => {
+                  console.log("hello");
+                })
+                .catch((err) => console.log(err));
             }}
           >
-            <Text>✅</Text>
+            <Text>✅Submit</Text>
           </Pressable>
-          <Pressable
+          {/* <Pressable
             onPress={() => {
               setCameraModalVisible(false);
             }}
           >
-            <Text>❌</Text>
-          </Pressable>
+            <Text>❌REJECT</Text>
+          </Pressable> */}
         </View>
       </Modal>
     </View>
