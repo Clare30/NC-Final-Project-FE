@@ -1,12 +1,25 @@
-import { View, Text, Modal, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  Modal,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
-import { Button, Image } from "react-native-elements";
+import { Image } from "react-native-elements";
 import postPhoto from "../firestoreCalls/users/firestore.postPhoto";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 
-export default function CameraPopup({ setCameraModalVisible, cameraModalVisible, uri, base64 }) {
+export default function CameraPopup({
+  setCameraModalVisible,
+  cameraModalVisible,
+  uri,
+  base64,
+}) {
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuthentication();
   const { animalCounts, setAnimalCounts } = useContext(AnimalCountContext);
   return (
@@ -21,25 +34,41 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
       >
         <View style={styles.modalView}>
           <Text>CameraPopup</Text>
-          {uri && <Image style={{ width: 150, height: 150 }} source={{ uri: uri }} />}
-          <Pressable
-            onPress={() => {
-              postPhoto(user.uid, uri, base64, animalCounts, setAnimalCounts)
-                .then(() => {
-                  console.log("hello");
-                })
-                .catch((err) => console.log(err));
-            }}
-          >
-            <Text>✅Submit</Text>
-          </Pressable>
-          {/* <Pressable
-            onPress={() => {
-              setCameraModalVisible(false);
-            }}
-          >
-            <Text>❌REJECT</Text>
-          </Pressable> */}
+          {uri && (
+            <Image style={{ width: 150, height: 150 }} source={{ uri: uri }} />
+          )}
+          {isLoading ? (
+            <ActivityIndicator size="small" color="#0000ff" />
+          ) : (
+            <>
+              <Pressable
+                onPress={() => {
+                  setIsLoading(true);
+                  postPhoto(
+                    user.uid,
+                    uri,
+                    base64,
+                    animalCounts,
+                    setAnimalCounts
+                  )
+                    .then(() => {
+                      setIsLoading(false);
+                      console.log("hello");
+                    })
+                    .catch((err) => console.log(err));
+                }}
+              >
+                <Text>✅Submit</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  setCameraModalVisible(false);
+                }}
+              >
+                <Text>❌REJECT</Text>
+              </Pressable>
+            </>
+          )}
         </View>
       </Modal>
     </View>
