@@ -2,7 +2,7 @@ import db from "../../config/firestore";
 import { doc, getDoc } from "firebase/firestore";
 
 const getAnimalsByUserId = (user) => {
-  const docRef = doc(db, "users-animals", `${user.uid}`, "animals", "photos");
+  const docRef = doc(db, "users", `${user.uid}`, "animals", "photos");
   return getDoc(docRef).then((res) => {
     return res.data();
   });
