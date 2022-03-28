@@ -39,6 +39,7 @@ export default function CameraPopup({
           <View style={styles.animalView}>
             <Pressable
               onPress={() => {
+                setCameraModalVisible(false);
                 setIsMatch(false);
               }}
             >
