@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import BadgeCard from "../Components/BadgeCard"
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import BadgeCard from "../Components/BadgeCard";
 
 export default function Badges() {
   const [counts, setCounts] = useState([]);
 
   useEffect(() => {
-    setCounts([{ name: "butterfly", count: 1}, { name: "frog", count: 10 }, { name: "deer", count: 20 }]);
+    setCounts([
+      { name: "butterfly", count: 1 },
+      { name: "frog", count: 10 },
+      { name: "deer", count: 20 },
+    ]);
   }, []);
 
   return (
     <View style={styles.control}>
-      <Text>My Badges</Text>
+      <ScrollView>
+        <Text>My Badges</Text>
 
-      {counts.map((count) => {
-        return <BadgeCard key={count.name} count={count} />;
-      })}
+        {counts.map((count) => {
+          return <BadgeCard key={count.name} count={count} />;
+        })}
+      </ScrollView>
     </View>
   );
 }
