@@ -10,11 +10,13 @@ import getAnimalCounts from "../firestoreCalls/animals/firestore.animalCounts";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import GalleryPage from "../screens/CameraGallery";
+import Map from "../screens/Map";
 const Drawer = createDrawerNavigator();
 
 export default function UserStack() {
   const { user } = useAuthentication();
   const [animalCounts, setAnimalCounts] = useState({});
+
   useEffect(() => {
     if (user) getAnimalCounts(user).then(setAnimalCounts);
   }, [user]);
@@ -34,6 +36,7 @@ export default function UserStack() {
           options={{ unmountOnBlur: true }}
         />
         <Drawer.Screen name="Gallery" component={GalleryPage} />
+        <Drawer.Screen name="My Map" component={Map} />
       </Drawer.Navigator>
     </AnimalCountContext.Provider>
   );

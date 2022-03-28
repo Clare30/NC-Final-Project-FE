@@ -2,6 +2,7 @@ import { arrayUnion, doc, increment, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import db from "../../config/firestore";
 import animals from "../../graphics/animals";
+import * as Location from "expo-location";
 
 const testData = {
   image_url:
@@ -73,8 +74,14 @@ const testData = {
     },
   ],
 };
-export default async function postPhoto(uid, uri, base64, animalCounts, setAnimalCounts) {
-  const testing = false;
+export default async function postPhoto(
+  uid,
+  uri,
+  base64,
+  animalCounts,
+  setAnimalCounts
+) {
+  const testing = true;
 
   const uploadAndGetURL = async (uid, uri) => {
     const storage = getStorage();
@@ -98,14 +105,17 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
         },
       ],
     });
-    let response = await fetch("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDNpGP52g4D0eVBHXmohzglMLMk1qUvhVc", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: body,
-    });
+    let response = await fetch(
+      "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDNpGP52g4D0eVBHXmohzglMLMk1qUvhVc",
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: body,
+      }
+    );
 
     return await response.json();
   };
@@ -114,8 +124,13 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
     const animalNames = Object.keys(animals);
     let animalName = null;
     for (let i = 0; i < imageTags.responses[0].labelAnnotations.length; i++) {
-      if (animalNames.includes(imageTags.responses[0].labelAnnotations[i].description.toLowerCase())) {
-        animalName = imageTags.responses[0].labelAnnotations[i].description.toLowerCase();
+      if (
+        animalNames.includes(
+          imageTags.responses[0].labelAnnotations[i].description.toLowerCase()
+        )
+      ) {
+        animalName =
+          imageTags.responses[0].labelAnnotations[i].description.toLowerCase();
         break;
       }
     }
@@ -134,15 +149,17 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
       copyObj.total_count ? copyObj.total_count++ : (copyObj.total_count = 1);
       return copyObj;
     });
+    const { coords } = await Location.getCurrentPositionAsync();
+    const location = [coords.latitude, coords.longitude];
     updateDoc(userDocCounts, updatingObjCounts);
     const userDocPhotos = doc(db, "users", uid, "animals", "photos");
     const updatingObjPhotos = {};
-    updatingObjPhotos[animalNameLower] = arrayUnion(imageURL);
+    updatingObjPhotos[animalNameLower] = arrayUnion({ imageURL, location });
     updateDoc(userDocPhotos, updatingObjPhotos);
   };
 
   const giveUserTheInfo = (animalName) => {
-    console.log(animalName);
+    
   };
 
   //If testing is false will run actual code

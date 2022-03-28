@@ -11,7 +11,10 @@ import { Image } from "react-native-elements";
 import postPhoto from "../firestoreCalls/users/firestore.postPhoto";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { useContext, useState } from "react";
-import { AnimalCountContext } from "../Contexts/AnimalCountContext";
+import {
+  AnimalCountContext,
+  AnimalNameContext,
+} from "../Contexts/AnimalCountContext";
 
 export default function CameraPopup({
   setCameraModalVisible,
@@ -53,7 +56,6 @@ export default function CameraPopup({
                   )
                     .then(() => {
                       setIsLoading(false);
-                      console.log("hello");
                     })
                     .catch((err) => console.log(err));
                 }}

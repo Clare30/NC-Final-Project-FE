@@ -24,8 +24,7 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
 
   // console.log("animal gallery", animalGallery);
 
-  console.log(animalUrls);
-  console.log(animalName);
+  
   return (
     <View>
       <Card>
@@ -34,6 +33,7 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
         </Text>
 
         {animalUrls.map((animalPic, index) => {
+          console.log(animalPic.imageURL);
           return (
             <View key={index}>
               <Pressable
@@ -43,7 +43,7 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
                 }}
               >
                 <Image
-                  source={animalPic}
+                  source={animalPic.imageURL}
                   style={{ width: 150, height: 150 }}
                 ></Image>
               </Pressable>
@@ -67,7 +67,7 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
                     <Text>X</Text>
                   </Pressable>
                   <Image
-                    source={animalPic}
+                    source={animalPic.imageURL}
                     style={{ width: 150, height: 150 }}
                   ></Image>
                 </View>

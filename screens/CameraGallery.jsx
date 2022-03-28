@@ -5,10 +5,13 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import getAnimalCounts from "../firestoreCalls/animals/firestore.animalCounts";
 import getAnimalsByUserId from "../firestoreCalls/users/firestore.animalsByUser";
 import SingleAnimalGalleryCard from "../Components/SingleAnimalGalleryCard";
+import Map from "./Map";
+
 
 const GalleryPage = () => {
   const [animals, setAnimals] = useState([]);
   const [animalGallery, setAnimalGallery] = useState([]);
+  const [showMap, setShowMap] = useState(false);
   const auth = getAuth();
   let currentUser;
 
@@ -21,7 +24,6 @@ const GalleryPage = () => {
   useEffect(() => {
     if (currentUser) {
       getAnimalsByUserId(currentUser).then((data) => {
-        console.log(data);
         setAnimalGallery(data);
       });
 
@@ -56,8 +58,6 @@ const GalleryPage = () => {
     });
   }, []);
 
-  console.log(animals);
-
   return (
     <View>
       {animals.map((animal) => {
@@ -69,6 +69,7 @@ const GalleryPage = () => {
           />
         );
       })}
+      <Map showMap={showMap} animals={animalGallery}/>
     </View>
   );
 };
