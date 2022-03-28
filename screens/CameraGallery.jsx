@@ -44,6 +44,7 @@ const GalleryPage = () => {
               key={animal[0]}
               animalName={animal[0]}
               animalUrls={animalGallery[animal[0]]}
+              currentUser={currentUser}
             />
           );
         })}

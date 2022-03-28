@@ -12,8 +12,15 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
             <Text>
               {animalName}: {animalUrls.length}
             </Text>
-            {animalUrls.map((animalPic, index) => {
-              return <ImagePopup animalPic={animalPic} index={index} />;
+            {animalUrls.map((animalUrl, index) => {
+              return (
+                <ImagePopup
+                  animalUrl={animalUrl}
+                  index={index}
+                  currentUser={currentUser}
+                  animalName={animalName}
+                />
+              );
             })}
           </Card>
         </View>

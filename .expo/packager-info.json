@@ -3,8 +3,8 @@
   "expoServerPort": 19000,
   "packagerPort": 19000,
   "webpackServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://e4-w9n.anonymous.nc-final-project-fe.exp.direct",
+  "packagerNgrokUrl": "https://e4-w9n.anonymous.nc-final-project-fe.exp.direct",
+  "ngrokPid": 8414,
   "packagerPid": null
 }
