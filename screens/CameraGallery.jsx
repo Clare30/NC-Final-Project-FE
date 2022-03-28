@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, Pressable } from "react-native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import getAnimalCounts from "../firestoreCalls/animals/firestore.animalCounts";
 import getAnimalsByUserId from "../firestoreCalls/users/firestore.animalsByUser";
 import SingleAnimalGalleryCard from "../Components/SingleAnimalGalleryCard";
 import Map from "./Map";
-
 
 const GalleryPage = () => {
   const [animals, setAnimals] = useState([]);
@@ -69,7 +68,15 @@ const GalleryPage = () => {
           />
         );
       })}
-      <Map showMap={showMap} animals={animalGallery}/>
+      <Pressable
+        style={{ width: 150, height: 150 }}
+        onPress={() => {
+          setShowMap(true);
+        }}
+      >
+        <Text>Map</Text>
+      </Pressable>
+      <Map showMap={showMap} animals={animalGallery} />
     </View>
   );
 };

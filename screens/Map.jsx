@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Pressable, useState, useEffect } from "react";
 import {
   ActivityIndicator,
   View,
@@ -33,43 +33,44 @@ export default function Map({ animals, showMap }) {
       });
     })();
   }, []);
-
-  if (errorMsg) return <Text>{errorMsg}</Text>;
-  if (!location.latitude)
-    return <ActivityIndicator size="large" color="#0000ff" />;
   let markerArray = [];
   return (
     <Modal visible={showMap}>
-      {animals &&
-        Object.keys(animals).forEach((animal) => {
-          animals[animal].forEach((animalData) => {
-            markerArray.push({
-              image: animal,
-              coords: {
-                latitude: animalData.location[0],
-                longitude: animalData.location[1],
-                latitudeDelta: 0.04,
-                longitudeDelta: 0.05,
-              },
-            });
-          });
-        })}
-      {setMarkers(markerArray)}
-      <View style={styles.container}>
-        <MapView initialRegion={location} style={styles.map}>
-          {markers.map(({ image, coords }, index) => {
-            return (
-              <Marker key={index} coordinate={coords}>
-                <Image style={styles.pin} source={animalImages[image]} />
-              </Marker>
-            );
-          })}
-        </MapView>
-      </View>
+      {errorMsg ? (
+        errorMsg
+      ) : !location.latitude ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <View>
+          {animals &&
+            Object.keys(animals).forEach((animal) => {
+              animals[animal].forEach((animalData) => {
+                markerArray.push({
+                  image: animal,
+                  coords: {
+                    latitude: animalData.location[0],
+                    longitude: animalData.location[1],
+                    latitudeDelta: 0.04,
+                    longitudeDelta: 0.05,
+                  },
+                });
+              });
+            })}{" "}
+          {setMarkers(markerArray)}
+          <MapView initialRegion={location} style={styles.map}>
+            {markers.map(({ image, coords }, index) => {
+              return (
+                <Marker key={index} coordinate={coords}>
+                  <Image style={styles.pin} source={animalImages[image]} />
+                </Marker>
+              );
+            })}
+          </MapView>
+        </View>
+      )}
     </Modal>
   );
 }
-
 const styles = StyleSheet.create({
   map: {
     width: Dimensions.get("window").width,
