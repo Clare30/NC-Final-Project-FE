@@ -3,6 +3,7 @@ import { View, Text, Modal, StyleSheet, Pressable, Image, ScrollView } from "rea
 import animalImages from "../graphics/animals";
 import YoutubeEmbed from "./YoutubeEmbed";
 import backArrow from "../graphics/icons/backArrow.png";
+import FadeInAnimation from "./FadeInAnimation"
 
 export default function FunFacts({ animal, modalVisible, setModalVisible }) {
   return (
@@ -19,7 +20,8 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
         <ScrollView>
           <View style={styles.modalView}>
             <Text style={styles.text}>{animal.name}</Text>
-            <Image style={{ width: 150, height: 150 }} source={animalImages[animal.name]} />
+            <FadeInAnimation>
+            <Image style={{ width: 150, height: 150 }} source={animalImages[animal.name]} /></FadeInAnimation>
             <View style={styles.card}>
               <Text style={styles.text}>🔍 Did you know?</Text>
               <Text style={styles.para}>{animal.fun_fact}</Text>
@@ -28,7 +30,7 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
             </View>
 
             {animal.video_url.map((url) => {
-              return <YoutubeEmbed key={url} video_url={url} />;
+              return <YoutubeEmbed key={url} video_url={url} style={styles.video}/>;
             })}
 
             <Pressable
@@ -90,5 +92,8 @@ const styles = StyleSheet.create({
   para: {
     marginTop: 20,
     marginBottom: 20,
+  },
+  video: {
+    margin: 20,
   },
 });

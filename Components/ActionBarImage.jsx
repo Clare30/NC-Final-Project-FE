@@ -1,19 +1,31 @@
 import { View, StyleSheet, Text, ImageBackground } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import bronze from "../graphics/icons/bronze-badge.png";
 import silver from "../graphics/icons/silver-badge.png";
 import gold from "../graphics/icons/gold-badge.png";
+import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 
 export default function ActionBarImage() {
-  const [badgeCount, setBadgeCount] = useState([]);
+  const { animalCounts: counts } = useContext(AnimalCountContext);
+  const [badgeCount, setBadgeCount] = useState({
+    bronze: 0,
+    silver: 0,
+    gold: 0,
+  });
 
   useEffect(() => {
-    setBadgeCount({
-      bronze: 3,
-      silver: 10,
-      gold: 20,
+    const newBadgeCount = { bronze: 0, silver: 0, gold: 0 };
+    Object.keys(counts).forEach((count) => {
+      if (counts[count] >= 10) {
+        newBadgeCount.gold++;
+      } else if (counts[count] >= 5) {
+        newBadgeCount.silver++;
+      } else if (counts[count] >= 1) {
+        newBadgeCount.bronze++;
+      }
     });
-  }, []);
+    setBadgeCount(newBadgeCount);
+  }, [counts]);
 
   return (
     <View style={styles.view}>

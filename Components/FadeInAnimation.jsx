@@ -9,7 +9,7 @@ export default function FadeInAnimation (props){
       fadeAnim,
       {
         toValue: 1,
-        duration: 4000,
+        duration: 3000,
       }
     ).start();
   }, [fadeAnim])
