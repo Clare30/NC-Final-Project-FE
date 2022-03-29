@@ -36,7 +36,6 @@ export default function UserStack() {
           options={{ unmountOnBlur: true }}
         />
         <Drawer.Screen name="Gallery" component={GalleryPage} />
-        <Drawer.Screen name="My Map" component={Map} />
       </Drawer.Navigator>
     </AnimalCountContext.Provider>
   );

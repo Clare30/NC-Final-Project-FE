@@ -1,11 +1,10 @@
-import React, { Pressable, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ActivityIndicator,
   View,
   StyleSheet,
   Dimensions,
   Image,
-  Text,
   Modal,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
@@ -44,8 +43,10 @@ export default function Map({ animals, showMap }) {
         <View>
           {animals &&
             Object.keys(animals).forEach((animal) => {
-              animals[animal].forEach((animalData) => {
+              animals[animal].map((animalData) => {
+                console.log(animal)
                 markerArray.push({
+                  
                   image: animal,
                   coords: {
                     latitude: animalData.location[0],
@@ -54,11 +55,17 @@ export default function Map({ animals, showMap }) {
                     longitudeDelta: 0.05,
                   },
                 });
+                if (markerArray.length === animalData.length) {
+                  setMarkers((currMarkers) => {
+                    return [...MarkerArray, ...currMarkers];
+                  });
+                }
               });
-            })}{" "}
-          {setMarkers(markerArray)}
+            })}
+
           <MapView initialRegion={location} style={styles.map}>
             {markers.map(({ image, coords }, index) => {
+              console.log(coords)
               return (
                 <Marker key={index} coordinate={coords}>
                   <Image style={styles.pin} source={animalImages[image]} />

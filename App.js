@@ -12,15 +12,11 @@ import { StyleSheet } from "react-native";
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <ThemeProvider>
-          <NavigationContainer>
-            <InitialStack />
-          </NavigationContainer>
-        </ThemeProvider>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <ThemeProvider>
+      <NavigationContainer>
+        <InitialStack />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
 
