@@ -1,12 +1,13 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { StyleSheet } from "react-native";
 import HomeScreen from "../screens/Home";
 import Animals from "../screens/Animals";
 import Badges from "../screens/Badges";
 import CameraPage from "../screens/CameraPage";
 import ActionBarImage from "../Components/ActionBarImage";
 import { useEffect, useState } from "react";
-import getAnimalCounts from "../firestoreCalls/animals/firestore.animalCounts";
+import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import GalleryPage from "../screens/CameraGallery";
@@ -25,18 +26,27 @@ export default function UserStack() {
     <AnimalCountContext.Provider value={{ animalCounts, setAnimalCounts }}>
       <Drawer.Navigator
         initialRootName="Home"
-        screenOptions={{ headerRight: () => <ActionBarImage /> }}
+        screenOptions={{
+          headerRight: () => <ActionBarImage />,
+          headerStyle: { backgroundColor: "#339999" },
+        }}
       >
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Animals" component={Animals} />
-        <Drawer.Screen name="My Badges" component={Badges} />
+        <Drawer.Screen name="Home" component={HomeScreen} options={{ unmountOnBlur: true }}/>
+        <Drawer.Screen name="Animals" component={Animals} options={{ unmountOnBlur: true }}/>
+        <Drawer.Screen name="My Badges" component={Badges} options={{ unmountOnBlur: true }}/>
         <Drawer.Screen
           name="Camera"
           component={CameraPage}
           options={{ unmountOnBlur: true }}
         />
-        <Drawer.Screen name="Gallery" component={GalleryPage} />
+        <Drawer.Screen name="Gallery" component={GalleryPage} options={{ unmountOnBlur: true }}/>
       </Drawer.Navigator>
     </AnimalCountContext.Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  view: {
+    backgroundColor: "#339999",
+  },
+});

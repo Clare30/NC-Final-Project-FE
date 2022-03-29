@@ -23,6 +23,7 @@ export default function CameraPopup({
   base64,
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isMatch, setIsMatch] = useState(false);
   const { user } = useAuthentication();
   const { animalCounts, setAnimalCounts } = useContext(AnimalCountContext);
   return (
@@ -33,45 +34,73 @@ export default function CameraPopup({
         visible={cameraModalVisible}
         onRequestClose={() => {
           setCameraModalVisible(false);
+          setIsMatch(false);
         }}
       >
-        <View style={styles.modalView}>
-          <Text>CameraPopup</Text>
-          {uri && (
-            <Image style={{ width: 150, height: 150 }} source={{ uri: uri }} />
-          )}
-          {isLoading ? (
-            <ActivityIndicator size="small" color="#0000ff" />
-          ) : (
-            <>
-              <Pressable
-                onPress={() => {
-                  setIsLoading(true);
-                  postPhoto(
-                    user.uid,
-                    uri,
-                    base64,
-                    animalCounts,
-                    setAnimalCounts
-                  )
-                    .then(() => {
-                      setIsLoading(false);
-                    })
-                    .catch((err) => console.log(err));
-                }}
-              >
-                <Text>✅Submit</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  setCameraModalVisible(false);
-                }}
-              >
-                <Text>❌REJECT</Text>
-              </Pressable>
-            </>
-          )}
-        </View>
+        {isMatch === null ? (
+          <View style={styles.animalView}>
+            <Pressable
+              onPress={() => {
+                setCameraModalVisible(false);
+                setIsMatch(false);
+              }}
+            >
+              <Text>❌</Text>
+            </Pressable>
+            <Text>No Match</Text>
+          </View>
+        ) : isMatch ? (
+          <View style={styles.animalView}>
+            <Pressable
+              onPress={() => {
+                setCameraModalVisible(false);
+                setIsMatch(false);
+              }}
+            >
+              <Text>❌</Text>
+            </Pressable>
+            <Text>You caught a {isMatch}!</Text>
+            <Image style={styles.image} source={{ uri }} />
+          </View>
+        ) : (
+          <View style={styles.modalView}>
+            <Text>CameraPopup</Text>
+            <Image style={styles.image} source={{ uri }} />
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#0000ff" />
+            ) : (
+              <>
+                <Pressable
+                  onPress={() => {
+                    setIsLoading(true);
+                    postPhoto(
+                      user.uid,
+                      uri,
+                      base64,
+                      animalCounts,
+                      setAnimalCounts,
+                      setIsMatch,
+                      setIsLoading
+                    )
+                      .then(() => {
+                        setIsLoading(false);
+                      })
+                      .catch((err) => console.log(err));
+                  }}
+                >
+                  <Text>✅Submit</Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    setCameraModalVisible(false);
+                  }}
+                >
+                  <Text>❌REJECT</Text>
+                </Pressable>
+              </>
+            )}
+          </View>
+        )}
       </Modal>
     </View>
   );
@@ -98,5 +127,25 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  animalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    height: 400,
+  },
+  image: {
+    width: 150,
+    height: 150,
   },
 });

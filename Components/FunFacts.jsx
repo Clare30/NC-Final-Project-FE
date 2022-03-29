@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Text, Modal, StyleSheet, Pressable, Image } from "react-native";
+import { View, Text, Modal, StyleSheet, Pressable, Image, ScrollView } from "react-native";
 import animalImages from "../graphics/animals";
 import YoutubeEmbed from "./YoutubeEmbed";
+import backArrow from "../graphics/icons/backArrow.png";
+import FadeInAnimation from "./FadeInAnimation"
 
 export default function FunFacts({ animal, modalVisible, setModalVisible }) {
   return (
@@ -15,33 +17,41 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.modalView}>
-          <Pressable
-            onPress={() => {
-              setModalVisible(false);
-            }}
-          >
-            <Text>X</Text>
-          </Pressable>
-          <Text>{animal.name}</Text>
-          <Image style={{ width: 150, height: 150 }} source={animalImages[animal.name]} />
-          <Text>Fun Fact: {animal.fun_fact}</Text>
-          <Text>What they eat: {animal.what_they_eat}</Text>
+        <ScrollView>
+          <View style={styles.modalView}>
+            <Text style={styles.text}>{animal.name}</Text>
+            <FadeInAnimation>
+            <Image style={{ width: 150, height: 150 }} source={animalImages[animal.name]} /></FadeInAnimation>
+            <View style={styles.card}>
+              <Text style={styles.text}>🔍 Did you know?</Text>
+              <Text style={styles.para}>{animal.fun_fact}</Text>
+              <Text style={styles.text}>🍽 What they eat</Text>
+              <Text style={styles.para}> {animal.what_they_eat}</Text>
+            </View>
 
-          {Array.isArray(animal.video_url) ? (
-            animal.video_url.map((url) => {
-              return <YoutubeEmbed key={url} video_url={url} />;
-            })
-          ) : (
-            <YoutubeEmbed video_url={animal.video_url} />
-          )}
-        </View>
+            {animal.video_url.map((url) => {
+              return <YoutubeEmbed key={url} video_url={url} style={styles.video}/>;
+            })}
+
+            <Pressable
+              onPress={() => {
+                setModalVisible(false);
+              }}
+            >
+              <Image source={backArrow} style={styles.backArrow} />
+            </Pressable>
+          </View>
+        </ScrollView>
       </Modal>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  backArrow: {
+    height: 50,
+    width: 50,
+  },
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -62,5 +72,28 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  card: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderWidth: 1,
+    borderColor: "#339999",
+    borderRadius: 20,
+    width: 250,
+    padding: 20,
+    backgroundColor: "#f1f1f1",
+    marginBottom: 50,
+  },
+  text: {
+    textTransform: "uppercase",
+    fontWeight: "600",
+  },
+  para: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  video: {
+    margin: 20,
   },
 });

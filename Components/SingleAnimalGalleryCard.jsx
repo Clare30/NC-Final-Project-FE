@@ -1,79 +1,37 @@
 import React, { useState } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useAuthentication } from "../utils/hooks/useAuthentication";
-import { Text, View, Image, Modal, Pressable, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
+import { ImagePopup } from "./ImagePopup";
 
-export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const { user } = useAuthentication();
-  const auth = getAuth();
-  let currentUser;
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      currentUser = user;
-    }
-  });
-
-  // useEffect(() => {
-  //   getAnimalsByUserId(currentUser).then((data) => {
-  //     console.log("here in data", data);
-  //   });
-  // }, []);
-
-  // console.log("animal gallery", animalGallery);
-
+export default function SingleAnimalGalleryCard({
+  animalName,
+  animalUrlList,
+  user,
+}) {
+  const [animalUrls, setAnimalUrls] = useState(animalUrlList);
   return (
     <View>
-      <Card>
-        <Text>
-          {animalName}: {animalUrls.length}
-        </Text>
-
-        {animalUrls.map((animalPic, index) => {
-          return (
-            <View key={index}>
-              <Pressable
-                style={{ width: 150, height: 150 }}
-                onPress={() => {
-                  setModalVisible(true);
-                }}
-              >
-                <Image
-                  source={animalPic.imageURL}
-                  style={{ width: 150, height: 150 }}
-                ></Image>
-              </Pressable>
-
-              <Modal
-                key={index}
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <View style={styles.modalView}>
-                  <Pressable
-                    onPress={() => {
-                      setModalVisible(false);
-                    }}
-                  >
-                    <Text>X</Text>
-                  </Pressable>
-                  <Image
-                    source={animalPic.imageURL}
-                    style={{ width: 150, height: 150 }}
-                  ></Image>
-                </View>
-              </Modal>
-            </View>
-          );
-        })}
-      </Card>
+      {animalUrls && (
+        <View style={styles.container}>
+          <Card>
+            <Text>
+              {animalName}: {animalUrls.length}
+            </Text>
+            {animalUrls.map((animalUrl, index) => {
+              return (
+                <ImagePopup
+                  setAnimalUrls={setAnimalUrls}
+                  imageUrl={animalUrl}
+                  index={index}
+                  user={user}
+                  animalName={animalName}
+                  key={animalUrl}
+                />
+              );
+            })}
+          </Card>
+        </View>
+      )}
     </View>
   );
 }
@@ -90,5 +48,15 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
+  },
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    marginHorizontal: 20,
+  },
+  image: {
+    width: 150,
+    height: 150,
   },
 });

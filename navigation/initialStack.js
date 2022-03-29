@@ -15,8 +15,8 @@ export default function InitialStack() {
       }}
       initialRouteName="Play"
     >
-      <Stack.Screen name="Play" component={PlayButton} />
-      <Stack.Screen name="Route Logic" component={RootNavigation} />
+      <Stack.Screen name="Play" component={PlayButton} options={{ unmountOnBlur: true }}/>
+      <Stack.Screen name="Route Logic" component={RootNavigation} options={{ unmountOnBlur: true }}/>
     </Stack.Navigator>
   );
 }

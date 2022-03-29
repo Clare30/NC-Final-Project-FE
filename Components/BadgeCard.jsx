@@ -1,18 +1,18 @@
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import React, { useState } from "react";
 import animalImages from "../graphics/animals";
-import bronze from "../graphics/icons/bronze-badge.png";
-import silver from "../graphics/icons/silver-badge.png";
-import gold from "../graphics/icons/gold-badge.png";
-import defaultBadge from "../graphics/icons/info.png";
+import bronze from "../graphics/icons/badges/bronze.png";
+import silver from "../graphics/icons/badges/silver.png";
+import gold from "../graphics/icons/badges/gold.png";
+import defaultBadge from "../graphics/icons/badges/no_badge.png";
 
 export default function BadgeCard({ count }) {
   let badgeColour;
-  if (count.count < 2) {
+  if (count.count < 1) {
     badgeColour = defaultBadge;
-  } else if (count.count < 3) {
+  } else if (count.count < 5) {
     badgeColour = bronze;
-  } else if (count.count < 11) {
+  } else if (count.count < 10) {
     badgeColour = silver;
   } else {
     badgeColour = gold;
@@ -20,11 +20,7 @@ export default function BadgeCard({ count }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={badgeColour}
-        style={styles.splashBackground}
-        resizeMode="cover"
-      >
+      <ImageBackground source={badgeColour} style={styles.splashBackground} resizeMode="cover">
         <Image style={styles.animalImage} source={animalImages[count.name]} />
         <Text>{count.count}</Text>
       </ImageBackground>

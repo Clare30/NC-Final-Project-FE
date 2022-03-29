@@ -1,12 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Input, Button } from "react-native-elements";
+import { ImageBackground, StyleSheet, View } from "react-native";
+
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+import {
+  Box,
+  Center,
+  FormControl,
+  Heading,
+  HStack,
+  VStack,
+  Button,
+  Input,
+  Link,
+  Text,
+} from "native-base";
+import signInBackground from "../graphics/scenes/sign-in-up-backdrop.png";
+import signInBox from "../graphics/scenes/sign-in-box.png";
 
 const auth = getAuth();
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [value, setValue] = React.useState({
     email: "",
     password: "",
@@ -33,36 +47,92 @@ const LoginScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Signin screen!</Text>
+    <ImageBackground
+      resizeMode="cover"
+      style={{ flex: 1 }}
+      source={signInBackground}
+    >
+      <Center w="100%">
+        <Box safeArea p="2" py="8" w="90%" maxW="290">
+          <Heading
+            fontWeight={400}
+            size="lg"
+            color="#fff"
+            _dark={{
+              color: "warmGray.50",
+            }}
+          >
+            Welcome
+          </Heading>
 
-      {!!value.error && (
-        <View style={styles.error}>
-          <Text>{value.error}</Text>
-        </View>
-      )}
+          {!!value.error && (
+            <View style={styles.error}>
+              <Text>{value.error}</Text>
+            </View>
+          )}
 
-      <View style={styles.controls}>
-        <Input
-          placeholder="Email"
-          containerStyle={styles.control}
-          value={value.email}
-          onChangeText={(text) => setValue({ ...value, email: text })}
-          leftIcon={<Icon name="envelope" size={16} />}
-        />
-
-        <Input
-          placeholder="Password"
-          containerStyle={styles.control}
-          value={value.password}
-          onChangeText={(text) => setValue({ ...value, password: text })}
-          secureTextEntry={true}
-          leftIcon={<Icon name="key" size={16} />}
-        />
-
-        <Button title="Sign in" buttonStyle={styles.control} onPress={login} />
-      </View>
-    </View>
+          <VStack space={3} mt="20" style={styles.vstack}>
+            <Center w="100%" h="270">
+              <ImageBackground
+                source={signInBox}
+                style={styles.owlBox}
+                alt="BackImageBackground"
+              >
+                <Center w="50%">
+                  <FormControl>
+                    <FormControl.Label>Email</FormControl.Label>
+                    <Input
+                      w="100%"
+                      value={value.email}
+                      onChangeText={(text) =>
+                        setValue({ ...value, email: text })
+                      }
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormControl.Label>Password</FormControl.Label>
+                    <Input
+                      secureTextEntry={true}
+                      w="100%"
+                      type="password"
+                      value={value.password}
+                      onChangeText={(text) =>
+                        setValue({ ...value, password: text })
+                      }
+                    />
+                  </FormControl>
+                  <Button mt="2" colorScheme="indigo" onPress={login}>
+                    Sign in
+                  </Button>
+                </Center>
+              </ImageBackground>
+            </Center>
+            <VStack mt="2" textAlign="center" alignContent="center">
+              <Text
+                fontSize="sm"
+                color="coolGray.600"
+                _dark={{
+                  color: "warmGray.200",
+                }}
+              >
+                I'm a new user
+              </Text>
+              <Text
+                onPress={() => {
+                  navigation.navigate("Sign Up");
+                }}
+                color="warmGray.200"
+                fontWeight="bold"
+                fontSize="sm"
+                textDecorationLine="underline"
+              >
+                Sign Up
+              </Text>
+            </VStack>
+          </VStack>
+        </Box>
+      </Center>
+    </ImageBackground>
   );
 };
 
@@ -71,7 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     backgroundColor: "#fff",
-    // alignItems: "center",
+    alignItems: "center",
     justifyContent: "center",
   },
 
@@ -88,6 +158,12 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "#fff",
     backgroundColor: "#D54826FF",
+  },
+  owlBox: {
+    height: 550,
+    width: 400,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

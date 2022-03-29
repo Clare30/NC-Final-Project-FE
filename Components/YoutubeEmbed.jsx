@@ -6,7 +6,7 @@ export default function YoutubeEmbed({ video_url }) {
   const videoId = video_url.split("?v=")[1];
   return (
     <View>
-      <YoutubePlayer height={300} play={false} videoId={videoId} />
+      <YoutubePlayer height={170} width={250} play={false} videoId={videoId} />
     </View>
   );
 }
