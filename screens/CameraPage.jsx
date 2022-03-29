@@ -1,4 +1,12 @@
-import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, Dimensions, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  Button,
+} from "react-native";
 import { Camera } from "expo-camera";
 import { useEffect, useState } from "react/cjs/react.development";
 import CameraPopup from "../Components/CameraPopup";
@@ -68,7 +76,12 @@ function CameraPage({ navigation }) {
         </View>
       </Camera>
 
-      <CameraPopup cameraModalVisible={cameraModalVisible} setCameraModalVisible={setCameraModalVisible} uri={imageUri} base64={base64} />
+      <CameraPopup
+        cameraModalVisible={cameraModalVisible}
+        setCameraModalVisible={setCameraModalVisible}
+        uri={imageUri}
+        base64={base64}
+      />
     </SafeAreaView>
   );
 }
