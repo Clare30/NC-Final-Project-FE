@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Modal,
-  StyleSheet,
-  Pressable,
-  Image,
-  ScrollView,
-} from "react-native";
+import { View, Text, Modal, StyleSheet, Pressable, Image, ScrollView } from "react-native";
 import animalImages from "../graphics/animals";
 import YoutubeEmbed from "./YoutubeEmbed";
 import backArrow from "../graphics/icons/backArrow.png";
@@ -27,23 +19,18 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
         <ScrollView>
           <View style={styles.modalView}>
             <Text style={styles.text}>{animal.name}</Text>
-            <Image
-              style={{ width: 150, height: 150 }}
-              source={animalImages[animal.name]}
-            />
+            <Image style={{ width: 150, height: 150 }} source={animalImages[animal.name]} />
             <View style={styles.card}>
               <Text style={styles.text}>🔍 Did you know?</Text>
               <Text style={styles.para}>{animal.fun_fact}</Text>
               <Text style={styles.text}>🍽 What they eat</Text>
               <Text style={styles.para}> {animal.what_they_eat}</Text>
             </View>
-            {Array.isArray(animal.video_url) ? (
-              animal.video_url.map((url) => {
-                return <YoutubeEmbed key={url} video_url={url} />;
-              })
-            ) : (
-              <YoutubeEmbed video_url={animal.video_url} />
-            )}
+
+            {animal.video_url.map((url) => {
+              return <YoutubeEmbed key={url} video_url={url} />;
+            })}
+
             <Pressable
               onPress={() => {
                 setModalVisible(false);
