@@ -1,5 +1,6 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { StyleSheet } from "react-native";
 import HomeScreen from "../screens/Home";
 import Animals from "../screens/Animals";
 import Badges from "../screens/Badges";
@@ -23,7 +24,10 @@ export default function UserStack() {
     <AnimalCountContext.Provider value={{ animalCounts, setAnimalCounts }}>
       <Drawer.Navigator
         initialRootName="Home"
-        screenOptions={{ headerRight: () => <ActionBarImage /> }}
+        screenOptions={{
+          headerRight: () => <ActionBarImage />,
+          headerStyle: { backgroundColor: "#339999" },
+        }}
       >
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Animals" component={Animals} />
@@ -38,3 +42,9 @@ export default function UserStack() {
     </AnimalCountContext.Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  view: {
+    backgroundColor: "#339999",
+  },
+});
