@@ -4,23 +4,33 @@ import React from "react";
 import "react-native-gesture-handler";
 import InitialStack from "./navigation/initialStack";
 import "./config/firestore";
-import { NativeBaseProvider, Text, Box } from "native-base";
+import { NativeBaseProvider } from "native-base";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
-// Import the functions you need from the SDKs you need
+import CustomTheme from "./CustomTheme";
+
+import {
+  useFonts,
+  OpenSans_300Light,
+  OpenSans_400Regular,
+  OpenSans_500Medium,
+  OpenSans_600SemiBold,
+  OpenSans_700Bold,
+} from "@expo-google-fonts/open-sans/";
 
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    OpenSans_300Light,
+    OpenSans_400Regular,
+    OpenSans_500Medium,
+    OpenSans_600SemiBold,
+    OpenSans_700Bold,
+  });
+
   return (
-    // <View style={styles.container}>
-    //   <ThemeProvider>
-    //     <NavigationContainer>
-    //       <InitialStack />
-    //     </NavigationContainer>
-    //   </ThemeProvider>
-    // </View>
-    <NativeBaseProvider>
+    <NativeBaseProvider theme={CustomTheme}>
       <ThemeProvider>
         <NavigationContainer>
           <InitialStack />
