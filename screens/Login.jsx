@@ -1,7 +1,6 @@
 import React from "react";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, StyleSheet, View } from "react-native";
 
-import { Input } from "react-native-elements";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import {
@@ -12,8 +11,12 @@ import {
   HStack,
   VStack,
   Button,
+  Input,
+  Link,
+  Text,
 } from "native-base";
 import signInBackground from "../graphics/scenes/sign-in-up-backdrop.png";
+import signInBox from "../graphics/scenes/sign-in-box.png";
 
 const auth = getAuth();
 
@@ -61,56 +64,71 @@ const LoginScreen = ({ navigation }) => {
           >
             Welcome
           </Heading>
-          <Heading
-            mt="1"
-            _dark={{
-              color: "warmGray.200",
-            }}
-            color="coolGray.600"
-            fontWeight="medium"
-            size="xs"
-          >
-            Sign in to continue!
-          </Heading>
+
           {!!value.error && (
             <View style={styles.error}>
               <Text>{value.error}</Text>
             </View>
           )}
 
-          <VStack space={3} mt="5">
-            <FormControl>
-              <FormControl.Label>Email</FormControl.Label>
-              <Input
-                value={value.email}
-                onChangeText={(text) => setValue({ ...value, email: text })}
-              />
-            </FormControl>
-            <FormControl>
-              <FormControl.Label>Password</FormControl.Label>
-              <Input
-                type="password"
-                value={value.password}
-                onChangeText={(text) => setValue({ ...value, password: text })}
-              />
-            </FormControl>
-            <Button mt="2" colorScheme="indigo" onPress={login}>
-              Sign in
-            </Button>
-            <HStack mt="6" justifyContent="center">
+          <VStack space={3} mt="20" style={styles.vstack}>
+            <Center w="100%" h="270">
+              <ImageBackground
+                source={signInBox}
+                style={styles.owlBox}
+                alt="BackImageBackground"
+              >
+                <Center w="50%">
+                  <FormControl>
+                    <FormControl.Label>Email</FormControl.Label>
+                    <Input
+                      w="100%"
+                      value={value.email}
+                      onChangeText={(text) =>
+                        setValue({ ...value, email: text })
+                      }
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormControl.Label>Password</FormControl.Label>
+                    <Input
+                      secureTextEntry={true}
+                      w="100%"
+                      type="password"
+                      value={value.password}
+                      onChangeText={(text) =>
+                        setValue({ ...value, password: text })
+                      }
+                    />
+                  </FormControl>
+                  <Button mt="2" colorScheme="indigo" onPress={login}>
+                    Sign in
+                  </Button>
+                </Center>
+              </ImageBackground>
+            </Center>
+            <VStack mt="2" textAlign="center" alignContent="center">
               <Text
-                onPress={() => {
-                  navigation.navigate("Sign Up");
-                }}
                 fontSize="sm"
                 color="coolGray.600"
                 _dark={{
                   color: "warmGray.200",
                 }}
               >
-                I'm a new user.{" "}
+                I'm a new user
               </Text>
-            </HStack>
+              <Text
+                onPress={() => {
+                  navigation.navigate("Sign Up");
+                }}
+                color="warmGray.200"
+                fontWeight="bold"
+                fontSize="sm"
+                textDecorationLine="underline"
+              >
+                Sign Up
+              </Text>
+            </VStack>
           </VStack>
         </Box>
       </Center>
@@ -123,7 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     backgroundColor: "#fff",
-    // alignItems: "center",
+    alignItems: "center",
     justifyContent: "center",
   },
 
@@ -140,6 +158,12 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "#fff",
     backgroundColor: "#D54826FF",
+  },
+  owlBox: {
+    height: 550,
+    width: 400,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

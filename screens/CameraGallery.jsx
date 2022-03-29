@@ -11,7 +11,7 @@ const GalleryPage = () => {
   const [animals, setAnimals] = useState([]);
   const [animalGallery, setAnimalGallery] = useState([]);
   const auth = getAuth();
-const {user} = useAuthentication()
+  const {user} = useAuthentication()
 
 
   useEffect(() => {
