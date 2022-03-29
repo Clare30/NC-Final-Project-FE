@@ -10,7 +10,7 @@ const testData = {
     {
       labelAnnotations: [
         {
-          description: "Frog",
+          description: "frog",
           mid: "/m/09ld4",
           score: 0.920323,
           topicality: 0.920323,
@@ -73,7 +73,14 @@ const testData = {
     },
   ],
 };
-export default async function postPhoto(uid, uri, base64, animalCounts, setAnimalCounts) {
+export default async function postPhoto(
+  uid,
+  uri,
+  base64,
+  animalCounts,
+  setAnimalCounts,
+  setIsMatch
+) {
   const testing = false;
 
   const uploadAndGetURL = async (uid, uri) => {
@@ -98,15 +105,17 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
         },
       ],
     });
-    let response = await fetch("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDNpGP52g4D0eVBHXmohzglMLMk1qUvhVc", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: body,
-    });
-
+    let response = await fetch(
+      "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDNpGP52g4D0eVBHXmohzglMLMk1qUvhVc",
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: body,
+      }
+    );
     return await response.json();
   };
 
@@ -114,8 +123,13 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
     const animalNames = Object.keys(animals);
     let animalName = null;
     for (let i = 0; i < imageTags.responses[0].labelAnnotations.length; i++) {
-      if (animalNames.includes(imageTags.responses[0].labelAnnotations[i].description.toLowerCase())) {
-        animalName = imageTags.responses[0].labelAnnotations[i].description.toLowerCase();
+      if (
+        animalNames.includes(
+          imageTags.responses[0].labelAnnotations[i].description.toLowerCase()
+        )
+      ) {
+        animalName =
+          imageTags.responses[0].labelAnnotations[i].description.toLowerCase();
         break;
       }
     }
@@ -142,7 +156,7 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
   };
 
   const giveUserTheInfo = (animalName) => {
-    console.log(animalName);
+    setIsMatch(animalName);
   };
 
   //If testing is false will run actual code
@@ -160,6 +174,7 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
       postAnimal(animalName, imageURL, animalCounts);
     } else {
       console.log("Must be rock");
+      setIsMatch(null);
     }
 
     //this is run when testing it true
@@ -171,10 +186,12 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
     const imageTags = testData;
     const image_url = testData.image_url;
     const animalName = checkMatch(imageTags);
+    console.log(animalName);
     if (animalName === null) {
       //Handle animal not found
       console.log("not found");
     } else {
+      giveUserTheInfo(animalName);
       postAnimal(animalName, image_url, animalCounts);
       //Handle the animal being found
     }

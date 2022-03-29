@@ -11,8 +11,8 @@ export default function Animals() {
         name: "frog",
         image_url:
           "https://cdn.britannica.com/84/206384-050-00698723/Javan-gliding-tree-frog.jpg",
-        fun_fact: "don't lick me",
-        what_they_eat: "zombies",
+        fun_fact: "They do not drink water. They get the required amount as they absorb water by using their skin.",
+        what_they_eat: "Frogs eat insects such as flies and moths, as well as snails, slugs and worms.",
         video_url: ["https://www.youtube.com/watch?v=ZOCi4DGiQr4"],
       },
       {
@@ -37,7 +37,7 @@ export default function Animals() {
   return (
     <View style={styles.control}>
       <ScrollView>
-        <Text>Animals</Text>
+        <Text style={styles.text}>ANI-DEX</Text>
 
         {animals.map((animal) => {
           return <AnimalCard key={animal.name} animal={animal} />;
@@ -69,4 +69,11 @@ const styles = StyleSheet.create({
     color: "#fff",
     backgroundColor: "#D54826FF",
   },
+
+  text: {
+    textAlign: "center",
+    textTransform: "uppercase",
+    fontWeight: 700,
+    marginBottom: 20,
+  }
 });

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
 import { ImagePopup } from "./ImagePopup";
 
-export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
+export default function SingleAnimalGalleryCard({ animalName, animalUrlList , user}) {
+  const [animalUrls, setAnimalUrls] = useState(animalUrlList)
   return (
     <View>
       {animalUrls && (
@@ -12,8 +13,16 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrls }) {
             <Text>
               {animalName}: {animalUrls.length}
             </Text>
-            {animalUrls.map((animalPic, index) => {
-              return <ImagePopup animalPic={animalPic} index={index} />;
+            {animalUrls.map((animalUrl, index) => {
+              return (
+                <ImagePopup
+                setAnimalUrls={setAnimalUrls}
+                  imageUrl={animalUrl}
+                  index={index}
+                  user={user}
+                  animalName={animalName}
+                />
+              );
             })}
           </Card>
         </View>
