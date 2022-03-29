@@ -1,23 +1,36 @@
 import React, { useState } from "react";
-import { Text, View, Image, Modal, Pressable, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import deleteImage from "../firestoreCalls/users/firestore.deleteImage";
 import SingleAnimalGalleryCard from "./SingleAnimalGalleryCard";
 
-export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls }) => {
+export const ImagePopup = ({
+  imageUrl,
+  index,
+  user,
+  animalName,
+  setAnimalUrls,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   return (
-    <View key={index}>
+    <View key={index} style={styles.box}>
       <Pressable
-        style={{ width: 150, height: 150 }}
+        style={styles.shadow}
         onPress={() => {
           setModalVisible(true);
         }}
       >
         <Image source={{ uri: imageUrl }} style={styles.image}></Image>
       </Pressable>
-
       <Modal
         key={index}
         animationType="slide"
@@ -33,7 +46,9 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
               setModalVisible(false);
             }}
           >
-            <Text>X</Text>
+            <View style={styles.button}>
+              <Text>Close</Text>
+            </View>
           </Pressable>
 
           <Modal
@@ -45,43 +60,42 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
               setDeleteModalVisible(false);
             }}
           >
-            <View>
-              <Text>Are you sure you want to delete image?</Text>
-              <Pressable
-                onPress={() => {
-                  // console.log(user)
-                  deleteImage(user, imageUrl, animalName)
-                  setAnimalUrls((animalUrls)=>{
-                    const copyUrls = [...animalUrls]
-                    copyUrls.splice(index, 1)
-                    return copyUrls
-                  })
-                  setDeleteModalVisible(false);
-                }}
-              >
-                <Text>Yes</Text>
-              </Pressable>
+            <View style={styles.modalView}>
+              <Text>Are you sure you want to delete this photo?</Text>
+              <View style={styles.flexContainer}>
+                <Pressable
+                  onPress={() => {
+                    // console.log(user)
+                    deleteImage(user, imageUrl, animalName);
+                    setAnimalUrls((animalUrls) => {
+                      const copyUrls = [...animalUrls];
+                      copyUrls.splice(index, 1);
+                      return copyUrls;
+                    });
+                    setDeleteModalVisible(false);
+                  }}
+                >
+                  <Text style={styles.emoji}>✅</Text>
+                </Pressable>
 
-              <Pressable
-                onPress={() => {
-                  setDeleteModalVisible(false);
-                }}
-              >
-                <Text>NO</Text>
-              </Pressable>
+                <Pressable
+                  onPress={() => {
+                    setDeleteModalVisible(false);
+                  }}
+                >
+                  <Text style={styles.emoji}>❌</Text>
+                </Pressable>
+              </View>
             </View>
           </Modal>
-
+          <Image source={{ uri: imageUrl }} style={styles.modalImage}></Image>
           <Pressable
             onPress={() => {
-              
               setDeleteModalVisible(true);
             }}
           >
-            <Text>Delete Image</Text>
+            <Text style={styles.emoji}>🗑️</Text>
           </Pressable>
-
-          <Image source={{ uri: imageUrl }} style={styles.image}></Image>
         </View>
       </Modal>
     </View>
@@ -89,6 +103,9 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
 };
 
 const styles = StyleSheet.create({
+  box: {
+    flexDirection: "row",
+  },
   modalView: {
     margin: 20,
     backgroundColor: "white",
@@ -108,7 +125,47 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 135,
+    height: 135,
+    borderRadius: 5,
+    display: "inline",
+  },
+  modalImage: {
+    width: Dimensions.get("window").width * 0.75,
+    height: Dimensions.get("window").width * 1.3333 * 0.75,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  shadow: {
+    borderRadius: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+  emoji: {
+    fontSize: 28,
+    marginTop: 20,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  flexContainer: { flex: 1, flexDirection: "row", flexWrap: "wrap" },
+  button: {
+    textAlign: "center",
+    fontWeight: "600",
+    backgroundColor:"#339999",
+    borderRadius: 10,
+    fontColor: "#fff00",
+    padding: 5,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
   },
 });
