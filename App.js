@@ -4,23 +4,29 @@ import React from "react";
 import "react-native-gesture-handler";
 import InitialStack from "./navigation/initialStack";
 import "./config/firestore";
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { NativeBaseProvider, Text, Box } from "native-base";
+
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 // Import the functions you need from the SDKs you need
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <ThemeProvider>
-          <NavigationContainer>
-            <InitialStack />
-          </NavigationContainer>
-        </ThemeProvider>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    // <View style={styles.container}>
+    //   <ThemeProvider>
+    //     <NavigationContainer>
+    //       <InitialStack />
+    //     </NavigationContainer>
+    //   </ThemeProvider>
+    // </View>
+    <NativeBaseProvider>
+      <ThemeProvider>
+        <NavigationContainer>
+          <InitialStack />
+        </NavigationContainer>
+      </ThemeProvider>
+    </NativeBaseProvider>
   );
 }
 
