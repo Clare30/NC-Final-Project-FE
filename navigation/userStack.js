@@ -7,7 +7,7 @@ import Badges from "../screens/Badges";
 import CameraPage from "../screens/CameraPage";
 import ActionBarImage from "../Components/ActionBarImage";
 import { useEffect, useState } from "react";
-import getAnimalCounts from "../firestoreCalls/animals/firestore.animalCounts";
+import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import GalleryPage from "../screens/CameraGallery";
