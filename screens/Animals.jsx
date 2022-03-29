@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     textTransform: "uppercase",
-    fontWeight: 700,
+    fontWeight: "600",
     marginBottom: 20,
   }
 });
