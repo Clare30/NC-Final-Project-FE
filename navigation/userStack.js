@@ -29,15 +29,15 @@ export default function UserStack() {
           headerStyle: { backgroundColor: "#339999" },
         }}
       >
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Animals" component={Animals} />
-        <Drawer.Screen name="My Badges" component={Badges} />
+        <Drawer.Screen name="Home" component={HomeScreen} options={{ unmountOnBlur: true }}/>
+        <Drawer.Screen name="Animals" component={Animals} options={{ unmountOnBlur: true }}/>
+        <Drawer.Screen name="My Badges" component={Badges} options={{ unmountOnBlur: true }}/>
         <Drawer.Screen
           name="Camera"
           component={CameraPage}
           options={{ unmountOnBlur: true }}
         />
-        <Drawer.Screen name="Gallery" component={GalleryPage} />
+        <Drawer.Screen name="Gallery" component={GalleryPage} options={{ unmountOnBlur: true }}/>
       </Drawer.Navigator>
     </AnimalCountContext.Provider>
   );

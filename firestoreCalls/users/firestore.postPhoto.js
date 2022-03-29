@@ -173,7 +173,6 @@ export default async function postPhoto(
       const imageURL = await uploadAndGetURL(uid, uri);
       postAnimal(animalName, imageURL, animalCounts);
     } else {
-      console.log("Must be rock");
       setIsMatch(null);
     }
 
@@ -186,7 +185,6 @@ export default async function postPhoto(
     const imageTags = testData;
     const image_url = testData.image_url;
     const animalName = checkMatch(imageTags);
-    console.log(animalName);
     if (animalName === null) {
       //Handle animal not found
       console.log("not found");

@@ -81,7 +81,6 @@ export default function CameraPopup({
                     )
                       .then(() => {
                         setIsLoading(false);
-                        console.log("hello");
                       })
                       .catch((err) => console.log(err));
                   }}
