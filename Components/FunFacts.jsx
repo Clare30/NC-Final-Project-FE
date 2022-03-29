@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textTransform: "uppercase",
-    fontWeight: 700,
+    fontWeight: "600",
   },
   para: {
     marginTop: 20,
