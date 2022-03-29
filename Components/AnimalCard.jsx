@@ -55,12 +55,19 @@ const styles = StyleSheet.create({
     width: 250,
     paddingLeft: 20,
     paddingRight: 20,
-    boxShadow: "0px 2px 4px",
     backgroundColor: "#ffffff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   text: {
     textTransform: "uppercase",
-    fontWeight: 700,
+    fontWeight: "600",
     marginLeft: 40,
   }
 });
