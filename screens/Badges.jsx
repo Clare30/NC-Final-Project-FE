@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
 import BadgeCard from "../Components/BadgeCard";
-
+import { AnimalCountContext } from "../Contexts/AnimalCountContext";
+import animals from "../graphics/animals";
 export default function Badges() {
-  const [counts, setCounts] = useState([]);
-
-  useEffect(() => {
-    setCounts([
-      { name: "butterfly", count: 1 },
-      { name: "frog", count: 10 },
-      { name: "deer", count: 20 },
-    ]);
-  }, []);
-
+  const { animalCounts: counts } = useContext(AnimalCountContext);
   return (
-    <View style={styles.control}>
-      <ScrollView>
-        <Text>My Badges</Text>
-
-        {counts.map((count) => {
-          return <BadgeCard key={count.name} count={count} />;
-        })}
-      </ScrollView>
+    <View style={styles.container}>
+      {counts && (
+        <ScrollView style={styles.control}>
+          {Object.keys(animals).map((count) => {
+            if (count !== "total_count") return <BadgeCard key={count} count={{ count: counts[count] || 0, name: count }} />;
+          })}
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -34,19 +26,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-  controls: {
-    flex: 1,
-  },
-
   control: {
+    flex: 1,
+    width: Dimensions.get("window").width,
     marginTop: 10,
-  },
-
-  error: {
-    marginTop: 10,
-    padding: 10,
-    color: "#fff",
-    backgroundColor: "#D54826FF",
   },
 });
