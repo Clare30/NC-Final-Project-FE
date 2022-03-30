@@ -1,9 +1,10 @@
-import { View, StyleSheet, Text, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import { useEffect, useState, useContext } from "react";
 import bronze from "../graphics/icons/bronze-badge.png";
 import silver from "../graphics/icons/silver-badge.png";
 import gold from "../graphics/icons/gold-badge.png";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
+import {Text} from "native-base"
 
 export default function ActionBarImage() {
   const { animalCounts: counts } = useContext(AnimalCountContext);
@@ -31,13 +32,13 @@ export default function ActionBarImage() {
   return (
     <View style={styles.view}>
       <ImageBackground style={styles.badgeImage} source={bronze}>
-        <Text style={styles.text}>{badgeCount.bronze}</Text>
+        <Text fontFamily="body" fontWeight={600} color="white" style={styles.text}>{badgeCount.bronze}</Text>
       </ImageBackground>
       <ImageBackground style={styles.badgeImage} source={silver}>
-        <Text style={styles.text}>{badgeCount.silver}</Text>
+        <Text fontFamily="body" fontWeight={600} color="white" style={styles.text}>{badgeCount.silver}</Text>
       </ImageBackground>
       <ImageBackground style={styles.badgeImage} source={gold}>
-        <Text style={styles.text}>{badgeCount.gold}</Text>
+        <Text fontFamily="body" fontWeight={600} color="white" style={styles.text}>{badgeCount.gold}</Text>
       </ImageBackground>
     </View>
   );
