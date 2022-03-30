@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { View, ScrollView, StyleSheet, Pressable } from "react-native";
+import { View, ScrollView, StyleSheet, Pressable, ImageBackground } from "react-native";
 import { VStack, Text } from "native-base";
 import { getAuth } from "firebase/auth";
-
 import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import getAnimalsByUserId from "../firestoreCalls/users/firestore.animalsByUser";
 import SingleAnimalGalleryCard from "../Components/SingleAnimalGalleryCard";
@@ -33,30 +32,31 @@ const GalleryPage = () => {
   }, [user]);
 
   return (
-    <View style={styles.background}>
-      {user && (
-        <ScrollView>
-          <Pressable
-            onPress={() => {
-              setShowMap(true);
-            }}
-          >
-            <VStack mt="4">
-              <Text>View Map</Text>
-              <Entypo name="map" size={30} color="#339999" />
-            </VStack>
-          </Pressable>
-          <Map showMap={showMap} animals={animalGallery} setShowMap={setShowMap} />
-          {animals.map((animal) => {
-            if (animalGallery[animal[0]] && animalGallery[animal[0]].length)
-              return (
-                <SingleAnimalGalleryCard key={animal[0]} animalName={animal[0]} animalUrlList={animalGallery[animal[0]]} user={user} />
-              );
-          })}
-        </ScrollView>
-      )}
-    </View>
-
+    <ImageBackground source={splashMainBackground} resizeMode="cover" style={styles.splashBackground}>
+      <View>
+        {user && (
+          <ScrollView>
+            <Pressable
+              onPress={() => {
+                setShowMap(true);
+              }}
+            >
+              <VStack mt="4">
+                <Text>View Map</Text>
+                <Entypo name="map" size={30} color="white" />
+              </VStack>
+            </Pressable>
+            <Map showMap={showMap} animals={animalGallery} setShowMap={setShowMap} />
+            {animals.map((animal) => {
+              if (animalGallery[animal[0]] && animalGallery[animal[0]].length)
+                return (
+                  <SingleAnimalGalleryCard key={animal[0]} animalName={animal[0]} animalUrlList={animalGallery[animal[0]]} user={user} />
+                );
+            })}
+          </ScrollView>
+        )}
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: "center",
     alignItems: "center",
-},
     justifyContent: "center",
   },
 });

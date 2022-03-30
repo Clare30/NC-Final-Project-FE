@@ -20,7 +20,7 @@ import {
 } from "@expo-google-fonts/open-sans/";
 
 export default function App() {
-  LogBox.ignoreLogs(["Setting a timer", "Animated:", "AsyncStorage has been extracted"]);
+  LogBox.ignoreLogs(["Setting a timer", "Animated:", "AsyncStorage has been extracted", "Warning: Can't perform a React state"]);
 
   let [fontsLoaded] = useFonts({
     OpenSans_300Light,
