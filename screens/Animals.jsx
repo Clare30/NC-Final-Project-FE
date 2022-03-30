@@ -16,7 +16,7 @@ export default function Animals() {
     <View style={styles.container}>
       <ImageBackground style={styles.splashBackground} resizeMode="cover" source={splashMainBackground}>
         <ScrollView style={styles.control}>
-          <Text fontFamily="body" fontWeight={600} style={styles.text}>
+          <Text fontFamily="body" fontWeight={600} style={styles.text} color="white">
             ANI-DEX
           </Text>
 

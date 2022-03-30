@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+
 import { View, ScrollView, StyleSheet, Pressable } from "react-native";
 import { VStack, Text } from "native-base";
 import { getAuth } from "firebase/auth";
+
 import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import getAnimalsByUserId from "../firestoreCalls/users/firestore.animalsByUser";
 import SingleAnimalGalleryCard from "../Components/SingleAnimalGalleryCard";
+import splashMainBackground from "../graphics/scenes/sign-in-up-backdrop.png";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { Entypo } from "@expo/vector-icons";
 
@@ -53,6 +56,7 @@ const GalleryPage = () => {
         </ScrollView>
       )}
     </View>
+
   );
 };
 
@@ -62,8 +66,15 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: "#F2F2F2",
   },
+
   map: {
     alignContent: "center",
+  },
+  splashBackground: {
+    flex: 1,
+    alignContent: "center",
+    alignItems: "center",
+},
     justifyContent: "center",
   },
 });

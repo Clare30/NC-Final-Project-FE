@@ -1,11 +1,16 @@
-import { View, StyleSheet, Text, ImageBackground } from "react-native";
+import { View, StyleSheet, ImageBackground } from "react-native";
 import { useEffect, useState, useContext } from "react";
+import { useAuthentication } from "../utils/hooks/useAuthentication";
+import { signOut, getAuth } from "firebase/auth";
 import bronze from "../graphics/icons/bronze-badge.png";
 import silver from "../graphics/icons/silver-badge.png";
 import gold from "../graphics/icons/gold-badge.png";
+import { MaterialIcons } from "@expo/vector-icons";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
+import {Text} from "native-base"
 
 export default function ActionBarImage() {
+  const auth = getAuth();
   const { animalCounts: counts } = useContext(AnimalCountContext);
   const [badgeCount, setBadgeCount] = useState({
     bronze: 0,
@@ -31,14 +36,17 @@ export default function ActionBarImage() {
   return (
     <View style={styles.view}>
       <ImageBackground style={styles.badgeImage} source={bronze}>
-        <Text style={styles.text}>{badgeCount.bronze}</Text>
+        <Text fontFamily="body" fontWeight={600} color="white" style={styles.text}>{badgeCount.bronze}</Text>
       </ImageBackground>
       <ImageBackground style={styles.badgeImage} source={silver}>
-        <Text style={styles.text}>{badgeCount.silver}</Text>
+        <Text fontFamily="body" fontWeight={600} color="white" style={styles.text}>{badgeCount.silver}</Text>
       </ImageBackground>
       <ImageBackground style={styles.badgeImage} source={gold}>
-        <Text style={styles.text}>{badgeCount.gold}</Text>
+        <Text fontFamily="body" fontWeight={600} color="white" style={styles.text}>{badgeCount.gold}</Text>
       </ImageBackground>
+      <View style={styles.logout}>
+        <MaterialIcons name="logout" size={24} color="white" onPress={() => signOut(auth)} />
+      </View>
     </View>
   );
 }
@@ -52,12 +60,15 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     borderRadius: 40 / 2,
-    marginLeft: 15,
+    marginLeft: 5,
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
     textAlign: "center",
+  },
+  logout: {
+    marginLeft: 10,
   },
 });

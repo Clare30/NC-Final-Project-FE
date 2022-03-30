@@ -1,7 +1,6 @@
 import React from "react";
 import {
   View,
-  Text,
   Modal,
   StyleSheet,
   Pressable,
@@ -12,6 +11,7 @@ import animalImages from "../graphics/animals";
 import YoutubeEmbed from "./YoutubeEmbed";
 import backArrow from "../graphics/icons/backArrow.png";
 import FadeInAnimation from "./FadeInAnimation";
+import {Text} from "native-base"
 
 export default function FunFacts({ animal, modalVisible, setModalVisible }) {
   return (
@@ -35,7 +35,7 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
             <Image source={backArrow} style={styles.backArrow} />
           </Pressable>
           <View style={styles.center}>
-            <Text style={styles.text}>{animal.name}</Text>
+            <Text fontFamily="body" fontWeight={600} style={styles.header}>{animal.name}</Text>
             <FadeInAnimation>
               <Image
                 style={{ width: 150, height: 150 }}
@@ -43,10 +43,10 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
               />
             </FadeInAnimation>
             <View style={styles.card}>
-              <Text style={styles.text}>🔍 Did you know?</Text>
-              <Text style={styles.para}>{animal.fun_fact}</Text>
-              <Text style={styles.text}>🍽 What they eat</Text>
-              <Text style={styles.para}> {animal.what_they_eat}</Text>
+              <Text fontFamily="body" fontWeight={600} style={styles.text}>🔍 Did you know?</Text>
+              <Text fontFamily="body" style={styles.para}>{animal.fun_fact}</Text>
+              <Text fontFamily="body" fontWeight={600} style={styles.text}>🍽 What they eat</Text>
+              <Text fontFamily="body" style={styles.para}> {animal.what_they_eat}</Text>
             </View>
 
             {animal.video_url.map((url) => {
@@ -113,4 +113,8 @@ const styles = StyleSheet.create({
   video: {
     margin: 20,
   },
+  header: {
+    textTransform: "uppercase",
+    fontSize: 20,
+  }
 });
