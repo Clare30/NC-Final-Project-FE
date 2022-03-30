@@ -1,18 +1,63 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Image,
+  View,
+  Pressable,
+} from "react-native";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { Button } from "react-native-elements";
 import { signOut, getAuth } from "firebase/auth";
+import splashMainBackground from "../graphics/scenes/adult+baby 320 x 480 px-.png";
+import buttons from "../graphics/icons/buttons";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const { user } = useAuthentication();
   const auth = getAuth();
 
   return (
     <View style={styles.container}>
-      <Text>Welcome {user?.email}!</Text>
+      <ImageBackground
+        source={splashMainBackground}
+        resizeMode="cover"
+        style={styles.splashBackground}
+      >
+        <View style={{ paddingTop: 75 }}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Animals");
+            }}
+          >
+            <Image source={buttons.anidex} style={styles.navButtons} />
+          </Pressable>
 
-      <Button title="Sign Out" style={styles.button} onPress={() => signOut(auth)} />
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Camera");
+            }}
+          >
+            <Image source={buttons.takePhoto} style={styles.navButtons} />
+          </Pressable>
+
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Gallery");
+            }}
+          >
+            <Image source={buttons.myAnimon} style={styles.navButtons} />
+          </Pressable>
+
+          <Pressable
+            style={styles.dropShadow}
+            onPress={() => {
+              navigation.navigate("My Badges");
+            }}
+          >
+            <Image source={buttons.myBadges} style={styles.navButtons} />
+          </Pressable>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -20,11 +65,32 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+  },
+  splashBackground: {
+    flex: 1,
+    alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
   },
-  button: {
-    marginTop: 10,
+  navButtons: {
+    height: 100,
+    width: 100,
+    marginRight: 150,
+    paddingTop: 5,
+    marginTop: 5,
+    paddingBottom: 5,
+    marginBottom: 5,
   },
 });
+
+{
+  /* <Text>Welcome {user?.email}!</Text> */
+}
+
+{
+  /* <Button
+          title="Sign Out"
+          style={styles.button}
+          onPress={() => signOut(auth)}
+        /> */
+}

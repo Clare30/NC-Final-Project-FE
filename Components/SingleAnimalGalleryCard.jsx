@@ -3,15 +3,11 @@ import { Text, View, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
 import { ImagePopup } from "./ImagePopup";
 
-export default function SingleAnimalGalleryCard({
-  animalName,
-  animalUrlList,
-  user,
-}) {
+export default function SingleAnimalGalleryCard({ animalName, animalUrlList, user }) {
   const [animalUrls, setAnimalUrls] = useState(animalUrlList);
   return (
-    <View>
-      {animalUrls && (
+    animalUrls.length !== 0 && (
+      <View>
         <View style={styles.container}>
           <Card
             containerStyle={{
@@ -19,7 +15,10 @@ export default function SingleAnimalGalleryCard({
               borderColor: "#339999",
             }}
           >
-            <Text style={styles.text}>{animalName}s</Text>
+            <Text style={styles.text}>
+              {animalName}
+              {animalName === "fox" ? "es" : animalName === "deer" ? "" : "s"}
+            </Text>
             <View style={styles.flexBox}>
               {animalUrls.map((animalUrl, index) => {
                 return (
@@ -36,8 +35,8 @@ export default function SingleAnimalGalleryCard({
             </View>
           </Card>
         </View>
-      )}
-    </View>
+      </View>
+    )
   );
 }
 
@@ -77,6 +76,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textTransform: "uppercase",
     fontWeight: "600",
-    marginBottom: 15,
   },
 });
