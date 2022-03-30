@@ -1,11 +1,15 @@
 import { View, StyleSheet, Text, ImageBackground } from "react-native";
 import { useEffect, useState, useContext } from "react";
+import { useAuthentication } from "../utils/hooks/useAuthentication";
+import { signOut, getAuth } from "firebase/auth";
 import bronze from "../graphics/icons/bronze-badge.png";
 import silver from "../graphics/icons/silver-badge.png";
 import gold from "../graphics/icons/gold-badge.png";
+import { MaterialIcons } from "@expo/vector-icons";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 
 export default function ActionBarImage() {
+  const auth = getAuth();
   const { animalCounts: counts } = useContext(AnimalCountContext);
   const [badgeCount, setBadgeCount] = useState({
     bronze: 0,
@@ -39,6 +43,9 @@ export default function ActionBarImage() {
       <ImageBackground style={styles.badgeImage} source={gold}>
         <Text style={styles.text}>{badgeCount.gold}</Text>
       </ImageBackground>
+      <View style={styles.logout}>
+        <MaterialIcons name="logout" size={24} color="white" onPress={() => signOut(auth)} />
+      </View>
     </View>
   );
 }
@@ -52,12 +59,15 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     borderRadius: 40 / 2,
-    marginLeft: 15,
+    marginLeft: 5,
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
   },
   text: {
     textAlign: "center",
+  },
+  logout: {
+    marginLeft: 10,
   },
 });

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
 import { ImagePopup } from "./ImagePopup";
+import { Text } from "native-base";
 
 export default function SingleAnimalGalleryCard({ animalName, animalUrlList, user }) {
   const [animalUrls, setAnimalUrls] = useState(animalUrlList);
@@ -15,7 +16,7 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrlList, use
               borderColor: "#339999",
             }}
           >
-            <Text style={styles.text}>
+            <Text fontFamily="body" fontWeight={500} style={styles.text}>
               {animalName}
               {animalName === "fox" ? "es" : animalName === "deer" ? "" : "s"}
             </Text>

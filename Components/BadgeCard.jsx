@@ -1,10 +1,11 @@
-import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
+import { View, Image, StyleSheet, ImageBackground } from "react-native";
 import React, { useState } from "react";
 import animalImages from "../graphics/animals";
 import bronze from "../graphics/icons/badges/bronze.png";
 import silver from "../graphics/icons/badges/silver.png";
 import gold from "../graphics/icons/badges/gold.png";
 import defaultBadge from "../graphics/icons/badges/no_badge.png";
+import { Text } from "native-base";
 
 export default function BadgeCard({ count }) {
   let badgeColour;
@@ -22,7 +23,9 @@ export default function BadgeCard({ count }) {
     <View style={styles.container}>
       <ImageBackground source={badgeColour} style={styles.splashBackground} resizeMode="cover">
         <Image style={styles.animalImage} source={animalImages[count.name]} />
-        <Text>{count.count}</Text>
+        <Text fontFamily="body" fontWeight={500} style={styles.countNumber}>
+          {count.count}
+        </Text>
       </ImageBackground>
     </View>
   );
@@ -46,5 +49,8 @@ const styles = StyleSheet.create({
   animalImage: {
     width: 100,
     height: 100,
+  },
+  countNumber: {
+    color: "#fff",
   },
 });
