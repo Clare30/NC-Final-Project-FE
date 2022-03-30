@@ -15,7 +15,10 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrlList, use
               borderColor: "#339999",
             }}
           >
-            <Text style={styles.text}>{animalName}s</Text>
+            <Text style={styles.text}>
+              {animalName}
+              {animalName === "fox" ? "es" : animalName === "deer" ? "" : "s"}
+            </Text>
             <View style={styles.flexBox}>
               {animalUrls.map((animalUrl, index) => {
                 return (
@@ -73,6 +76,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textTransform: "uppercase",
     fontWeight: "600",
-    marginBottom: 15,
   },
 });

@@ -96,13 +96,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    borderColor: "#339999",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   container: {
     flex: 1,
@@ -122,6 +124,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   shadow: {
+    marginTop: 15,
     borderRadius: 5,
     shadowColor: "#000",
     shadowOffset: {
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
-  flexContainer: { flex: 1, flexDirection: "row", flexWrap: "wrap" },
+  flexContainer: { flexDirection: "row" },
   button: {
     textAlign: "center",
     fontWeight: "600",
