@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Text, View, Image, Modal, Pressable, StyleSheet, Dimensions } from "react-native";
 import deleteImage from "../firestoreCalls/users/firestore.deleteImage";
+import { MaterialCommunityIcons, Fontisto, AntDesign, Feather, Entypo } from "@expo/vector-icons";
+import { HStack, useToast } from "native-base";
+
 export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-
+  const toast = useToast();
   return (
     <View key={index} style={styles.box}>
       <Pressable
@@ -32,7 +35,7 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
             }}
           >
             <View style={styles.button}>
-              <Text>Close</Text>
+              <Text style={styles.whiteText}>Close</Text>
             </View>
           </Pressable>
 
@@ -48,28 +51,33 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
             <View style={styles.modalView}>
               <Text>Are you sure you want to delete this photo?</Text>
               <View style={styles.flexContainer}>
-                <Pressable
-                  onPress={() => {
-                    // console.log(user)
-                    deleteImage(user, imageUrl, animalName);
-                    setAnimalUrls((animalUrls) => {
-                      const copyUrls = [...animalUrls];
-                      copyUrls.splice(index, 1);
-                      return copyUrls;
-                    });
-                    setDeleteModalVisible(false);
-                  }}
-                >
-                  <Text style={styles.emoji}>✅</Text>
-                </Pressable>
+                <HStack space={10} mt="4">
+                  <Pressable
+                    onPress={() => {
+                      deleteImage(user, imageUrl, animalName);
+                      setAnimalUrls((animalUrls) => {
+                        const copyUrls = [...animalUrls];
+                        copyUrls.splice(index, 1);
+                        return copyUrls;
+                      });
+                      setDeleteModalVisible(false);
+                      toast.show({
+                        title: "Deleted",
+                        placement: "bottom",
+                      });
+                    }}
+                  >
+                    <Entypo name="check" size={28} color="#339999" />
+                  </Pressable>
 
-                <Pressable
-                  onPress={() => {
-                    setDeleteModalVisible(false);
-                  }}
-                >
-                  <Text style={styles.emoji}>❌</Text>
-                </Pressable>
+                  <Pressable
+                    onPress={() => {
+                      setDeleteModalVisible(false);
+                    }}
+                  >
+                    <Entypo name="cross" size={28} color="#339999" />
+                  </Pressable>
+                </HStack>
               </View>
             </View>
           </Modal>
@@ -79,7 +87,7 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
               setDeleteModalVisible(true);
             }}
           >
-            <Text style={styles.emoji}>🗑️</Text>
+            <AntDesign name="delete" size={24} color="#339999" />
           </Pressable>
         </View>
       </Modal>
@@ -122,6 +130,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").width * 1.3333 * 0.75,
     borderRadius: 5,
     marginTop: 20,
+    marginBottom: 20,
   },
   shadow: {
     marginTop: 15,
@@ -144,6 +153,7 @@ const styles = StyleSheet.create({
   button: {
     textAlign: "center",
     fontWeight: "600",
+    color: "#fff",
     backgroundColor: "#339999",
     borderRadius: 10,
     padding: 5,
@@ -154,5 +164,8 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
+  },
+  whiteText: {
+    color: "fff",
   },
 });

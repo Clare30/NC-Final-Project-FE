@@ -94,7 +94,7 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
                       .catch((err) => console.log(err));
                   }}
                 >
-                  <Fontisto name="save" size={24} color="black" />
+                  <Fontisto name="save" size={24} color="#339999" />
                 </Pressable>
                 <Pressable
                   onPress={() => {
@@ -105,7 +105,7 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
                     });
                   }}
                 >
-                  <AntDesign name="delete" size={24} color="black" />
+                  <AntDesign name="delete" size={24} color="#339999" />
                 </Pressable>
               </HStack>
             )}
