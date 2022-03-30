@@ -5,12 +5,10 @@ import "react-native-gesture-handler";
 import InitialStack from "./navigation/initialStack";
 import "./config/firestore";
 import { NativeBaseProvider } from "native-base";
-import { LogBox } from "react-native";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
-
 import CustomTheme from "./CustomTheme";
+import { LogBox } from "react-native";
 
 import {
   useFonts,
