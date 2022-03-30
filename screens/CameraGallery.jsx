@@ -37,12 +37,13 @@ const GalleryPage = () => {
         {user && (
           <ScrollView>
             <Pressable
+              style={styles.viewMap}
               onPress={() => {
                 setShowMap(true);
               }}
             >
-              <VStack mt="4">
-                <Text>View Map</Text>
+              <VStack mt="4" style={styles.column}>
+                <Text fontFamily="body" style={styles.whiteFont}>View Map</Text>
                 <Entypo name="map" size={30} color="white" />
               </VStack>
             </Pressable>
@@ -76,4 +77,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  viewMap: {
+    alignSelf: "center",
+  },
+  column: {
+    flexDirection: "column",
+    alignItems: "center",
+    alignContent: "center"
+  }, 
+  whiteFont: {
+    color: "#fff",
+    fontSize: 16
+  }
 });
