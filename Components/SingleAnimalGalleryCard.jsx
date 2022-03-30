@@ -13,22 +13,27 @@ export default function SingleAnimalGalleryCard({
     <View>
       {animalUrls && (
         <View style={styles.container}>
-          <Card>
-            <Text>
-              {animalName}: {animalUrls.length}
-            </Text>
-            {animalUrls.map((animalUrl, index) => {
-              return (
-                <ImagePopup
-                  setAnimalUrls={setAnimalUrls}
-                  imageUrl={animalUrl}
-                  index={index}
-                  user={user}
-                  animalName={animalName}
-                  key={animalUrl}
-                />
-              );
-            })}
+          <Card
+            containerStyle={{
+              borderRadius: 10,
+              borderColor: "#339999",
+            }}
+          >
+            <Text style={styles.text}>{animalName}s</Text>
+            <View style={styles.flexBox}>
+              {animalUrls.map((animalUrl, index) => {
+                return (
+                  <ImagePopup
+                    setAnimalUrls={setAnimalUrls}
+                    imageUrl={animalUrl}
+                    index={index}
+                    user={user}
+                    animalName={animalName}
+                    key={animalUrl}
+                  />
+                );
+              })}
+            </View>
           </Card>
         </View>
       )}
@@ -51,12 +56,27 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    borderRadius: 10,
+    borderColor: "#339999",
+  },
+  flexBox: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
   },
   scrollView: {
     marginHorizontal: 20,
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 130,
+    height: 130,
+    margin: 5,
+  },
+  text: {
+    textAlign: "center",
+    textTransform: "uppercase",
+    fontWeight: "600",
+    marginBottom: 15,
   },
 });
