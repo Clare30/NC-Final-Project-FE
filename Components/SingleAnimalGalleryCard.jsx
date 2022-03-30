@@ -16,7 +16,7 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrlList, use
               borderColor: "#339999",
             }}
           >
-            <Text fontFamily="body" fontWeight={500} style={styles.text}>
+            <Text fontFamily="body" fontWeight={700} style={styles.text}>
               {animalName}
               {animalName === "fox" ? "es" : animalName === "deer" ? "" : "s"}
             </Text>

@@ -36,6 +36,7 @@ const LoginScreen = ({ navigation }) => {
         ...value,
         error: error.message,
       });
+      setIsLoading(false);
     }
   }
 
