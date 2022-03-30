@@ -3,7 +3,6 @@ import { Camera } from "expo-camera";
 import { useEffect, useState } from "react/cjs/react.development";
 import CameraPopup from "../Components/CameraPopup";
 import { manipulateAsync } from "expo-image-manipulator";
-import button from "../graphics/icons/buttons/home_take_photo.png";
 import { Entypo } from "@expo/vector-icons";
 
 function CameraPage({ navigation }) {
