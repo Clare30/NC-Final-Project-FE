@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  ImageBackground,
-  StyleSheet,
-  Image,
-  View,
-  Pressable,
-} from "react-native";
+import { ImageBackground, StyleSheet, Image, View, Pressable } from "react-native";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { Button } from "react-native-elements";
 import { signOut, getAuth } from "firebase/auth";
-import splashMainBackground from "../graphics/scenes/adult+baby 320 x 480 px-.png";
+import splashMainBackground from "../graphics/scenes/welcome.png";
 import buttons from "../graphics/icons/buttons";
 
 export default function Home({ navigation }) {
@@ -18,11 +12,7 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={splashMainBackground}
-        resizeMode="cover"
-        style={styles.splashBackground}
-      >
+      <ImageBackground source={splashMainBackground} resizeMode="cover" style={styles.splashBackground}>
         <View style={{ paddingTop: 75 }}>
           <Pressable
             onPress={() => {

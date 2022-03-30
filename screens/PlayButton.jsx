@@ -1,30 +1,20 @@
 import React from "react";
-import {
-  Pressable,
-  StyleSheet,
-  ImageBackground,
-  Image,
-  View,
-} from "react-native";
+import { Pressable, StyleSheet, ImageBackground, Image, View } from "react-native";
 import splashMainBackground from "../graphics/scenes/play-backdrop.png";
-import playButton from "../graphics/icons/buttons/home_play.png";
+import buttons from "../graphics/icons/buttons/index.js";
 import FadeInAnimation from "../Components/FadeInAnimation";
 
 const PlayButton = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.splashBackground}
-        resizeMode="cover"
-        source={splashMainBackground}
-      >
+      <ImageBackground style={styles.splashBackground} resizeMode="cover" source={splashMainBackground}>
         <FadeInAnimation>
           <Pressable
             onPress={() => {
               navigation.navigate("Route Logic");
             }}
           >
-            <Image source={playButton} style={styles.playButton}></Image>
+            <Image source={buttons.playButton} style={styles.playButton}></Image>
           </Pressable>
         </FadeInAnimation>
       </ImageBackground>

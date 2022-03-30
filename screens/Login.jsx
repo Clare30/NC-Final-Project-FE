@@ -116,34 +116,10 @@ const LoginScreen = ({ navigation }) => {
                 </VStack>
               </Box>
             </Center>
-            <VStack mt="2">
-              <Text
-                textAlign="center"
-                fontSize="sm"
-                color="coolGray.600"
-                _dark={{
-                  color: "warmGray.200",
-                }}
-              >
-                I'm a new user
-              </Text>
-              <Text
-                onPress={() => {
-                  navigation.navigate("Sign Up");
-                }}
-                textAlign="center"
-                color="warmGray.200"
-                fontWeight="bold"
-                fontSize="sm"
-                textDecorationLine="underline"
-              >
-                Sign Up
-              </Text>
-            </VStack>
-          </VStack>
-        </Box>
-      </Center>
-    </ImageBackground>
+          </ImageBackground>
+        </>
+      )}
+    </>
   );
 };
 
@@ -177,5 +153,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
 export default LoginScreen;
