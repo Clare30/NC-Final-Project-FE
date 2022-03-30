@@ -32,6 +32,7 @@ export const ImagePopup = ({
         <Image source={{ uri: imageUrl }} style={styles.image}></Image>
       </Pressable>
       <Modal
+        style={styles.modalView}
         key={index}
         animationType="slide"
         transparent={true}
@@ -111,6 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
+    borderColor: "#339999",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -128,7 +130,6 @@ const styles = StyleSheet.create({
     width: 135,
     height: 135,
     borderRadius: 5,
-    display: "inline",
   },
   modalImage: {
     width: Dimensions.get("window").width * 0.75,
@@ -156,9 +157,8 @@ const styles = StyleSheet.create({
   button: {
     textAlign: "center",
     fontWeight: "600",
-    backgroundColor:"#339999",
+    backgroundColor: "#339999",
     borderRadius: 10,
-    fontColor: "#fff00",
     padding: 5,
     shadowColor: "#000",
     shadowOffset: {
