@@ -31,8 +31,8 @@ export default function Map({ animals, showMap, setShowMap }) {
       {!animals || !location.latitude ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <View style={{ flex: 1 }}>
-          <MapView maxZoom={12} initialRegion={location} style={styles.map}>
+        <View>
+          <MapView initialRegion={location} style={styles.map}>
             {Object.keys(animals).map((animal) => {
               return animals[animal].map((animalData, index) => {
                 return (
@@ -66,7 +66,6 @@ export default function Map({ animals, showMap, setShowMap }) {
 }
 const styles = StyleSheet.create({
   map: {
-    flex: 1,
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
   },
