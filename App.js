@@ -5,6 +5,7 @@ import "react-native-gesture-handler";
 import InitialStack from "./navigation/initialStack";
 import "./config/firestore";
 import { NativeBaseProvider } from "native-base";
+import { LogBox } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
@@ -21,6 +22,8 @@ import {
 } from "@expo-google-fonts/open-sans/";
 
 export default function App() {
+  LogBox.ignoreLogs(["Setting a timer", "Animated:", "AsyncStorage has been extracted"]);
+
   let [fontsLoaded] = useFonts({
     OpenSans_300Light,
     OpenSans_400Regular,
