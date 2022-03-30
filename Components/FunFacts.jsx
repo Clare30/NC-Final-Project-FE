@@ -1,9 +1,17 @@
 import React from "react";
-import { View, Text, Modal, StyleSheet, Pressable, Image, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Modal,
+  StyleSheet,
+  Pressable,
+  Image,
+  ScrollView,
+} from "react-native";
 import animalImages from "../graphics/animals";
 import YoutubeEmbed from "./YoutubeEmbed";
 import backArrow from "../graphics/icons/backArrow.png";
-import FadeInAnimation from "./FadeInAnimation"
+import FadeInAnimation from "./FadeInAnimation";
 
 export default function FunFacts({ animal, modalVisible, setModalVisible }) {
   return (
@@ -19,9 +27,21 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
       >
         <ScrollView>
           <View style={styles.modalView}>
+            <Pressable
+            onPress={() => {
+              setModalVisible(false);
+            }}
+          >
+            <Image source={backArrow} style={styles.backArrow} />
+          </Pressable>
+          <View style={styles.center}>
             <Text style={styles.text}>{animal.name}</Text>
             <FadeInAnimation>
-            <Image style={{ width: 150, height: 150 }} source={animalImages[animal.name]} /></FadeInAnimation>
+              <Image
+                style={{ width: 150, height: 150 }}
+                source={animalImages[animal.name]}
+              />
+            </FadeInAnimation>
             <View style={styles.card}>
               <Text style={styles.text}>🔍 Did you know?</Text>
               <Text style={styles.para}>{animal.fun_fact}</Text>
@@ -30,16 +50,10 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
             </View>
 
             {animal.video_url.map((url) => {
-              return <YoutubeEmbed key={url} video_url={url} style={styles.video}/>;
-            })}
-
-            <Pressable
-              onPress={() => {
-                setModalVisible(false);
-              }}
-            >
-              <Image source={backArrow} style={styles.backArrow} />
-            </Pressable>
+              return (
+                <YoutubeEmbed key={url} video_url={url} style={styles.video} />
+              );
+            })}</View>
           </View>
         </ScrollView>
       </Modal>
@@ -48,9 +62,13 @@ export default function FunFacts({ animal, modalVisible, setModalVisible }) {
 }
 
 const styles = StyleSheet.create({
+  center: {
+    alignItems: "center",
+  },
   backArrow: {
-    height: 50,
-    width: 50,
+    height: 30,
+    width: 30,
+    alignSelf: "flex-start",
   },
   centeredView: {
     flex: 1,
@@ -63,7 +81,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
