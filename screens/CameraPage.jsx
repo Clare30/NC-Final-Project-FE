@@ -35,8 +35,6 @@ function CameraPage({ navigation }) {
         skipProcessing: true,
       };
       await camera.takePictureAsync(options).then(async (photo) => {
-        //This forces the images orientation to protrait (exif is the image data)
-        // console.log("before " + photo.exif.toString());
         const compressedImage = await manipulateAsync(photo.uri, [], { compress: 0.5, base64: true });
         setImageUri(compressedImage.uri);
         setBase64(compressedImage.base64);
