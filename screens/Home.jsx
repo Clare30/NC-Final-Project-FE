@@ -1,9 +1,8 @@
 import React from "react";
 import { ImageBackground, StyleSheet, Image, View, Pressable } from "react-native";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
-import { Button } from "react-native-elements";
-import { signOut, getAuth } from "firebase/auth";
-import splashMainBackground from "../graphics/scenes/welcome.png";
+import { getAuth } from "firebase/auth";
+import splashMainBackground from "../graphics/scenes/play-backdrop.png";
 import buttons from "../graphics/icons/buttons";
 
 export default function Home({ navigation }) {
