@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Modal,
-  StyleSheet,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, Modal, StyleSheet, Pressable, ActivityIndicator } from "react-native";
 import React from "react";
 import { Image } from "react-native-elements";
 import postPhoto from "../firestoreCalls/users/firestore.postPhoto";
@@ -13,12 +6,7 @@ import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { useContext, useState } from "react";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 
-export default function CameraPopup({
-  setCameraModalVisible,
-  cameraModalVisible,
-  uri,
-  base64,
-}) {
+export default function CameraPopup({ setCameraModalVisible, cameraModalVisible, uri, base64 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
   const { user } = useAuthentication();
@@ -70,15 +58,7 @@ export default function CameraPopup({
                 <Pressable
                   onPress={() => {
                     setIsLoading(true);
-                    postPhoto(
-                      user.uid,
-                      uri,
-                      base64,
-                      animalCounts,
-                      setAnimalCounts,
-                      setIsMatch,
-                      setIsLoading
-                    )
+                    postPhoto(user.uid, uri, base64, animalCounts, setAnimalCounts, setIsMatch, setIsLoading)
                       .then(() => {
                         setIsLoading(false);
                         console.log("hello");
