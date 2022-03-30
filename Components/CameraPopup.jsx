@@ -1,4 +1,4 @@
-import { View, Text, Modal, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Modal, StyleSheet, ActivityIndicator, ImageBackground } from "react-native";
 import React from "react";
 import { Image } from "react-native";
 import postPhoto from "../firestoreCalls/users/firestore.postPhoto";
@@ -7,6 +7,11 @@ import { useContext, useState } from "react";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import { MaterialCommunityIcons, Fontisto, AntDesign, Feather, Entypo } from "@expo/vector-icons";
 import { HStack, Pressable, useToast, Heading } from "native-base";
+import animalImages from "../graphics/animals";
+import bronze from "../graphics/icons/badges/bronze.png";
+import silver from "../graphics/icons/badges/silver.png";
+import gold from "../graphics/icons/badges/gold.png";
+import defaultBadge from "../graphics/icons/badges/no_badge.png";
 
 export default function CameraPopup({ setCameraModalVisible, cameraModalVisible, uri, base64 }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,6 +19,17 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
   const { user } = useAuthentication();
   const { animalCounts, setAnimalCounts } = useContext(AnimalCountContext);
   const toast = useToast();
+
+  let badgeColour;
+  if (animalCounts[isMatch] < 1) {
+    badgeColour = defaultBadge;
+  } else if (animalCounts[isMatch] < 5) {
+    badgeColour = bronze;
+  } else if (animalCounts[isMatch] < 10) {
+    badgeColour = silver;
+  } else {
+    badgeColour = gold;
+  }
 
   return (
     <View style={styles.centeredView}>
@@ -56,6 +72,9 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
             <Heading style={styles.text}>It's a {isMatch}!</Heading>
             <Image style={styles.image} source={{ uri }} />
             <Heading style={styles.text}>You've caught {animalCounts[isMatch]} so far!</Heading>
+            <ImageBackground source={badgeColour} style={styles.splashBackground} resizeMode="cover">
+              <Image style={styles.animalImage} source={animalImages[isMatch]} />
+            </ImageBackground>
           </View>
         ) : (
           <View style={styles.modalView}>
@@ -134,5 +153,17 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
+  },
+  splashBackground: {
+    width: 150,
+    height: 150,
+    alignContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 30,
+  },
+  animalImage: {
+    width: 100,
+    height: 100,
   },
 });

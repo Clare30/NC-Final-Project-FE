@@ -81,7 +81,7 @@ export default async function postPhoto(
   setAnimalCounts,
   setIsMatch
 ) {
-  const testing = false;
+  const testing = true;
 
   const uploadAndGetURL = async (uid, uri) => {
     const storage = getStorage();
