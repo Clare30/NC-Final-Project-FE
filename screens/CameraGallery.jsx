@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, StyleSheet } from "react-native";
+import { Text, View, ScrollView, StyleSheet, Pressable } from "react-native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
@@ -44,6 +44,19 @@ const GalleryPage = () => {
                 />
               );
           })}
+          <Pressable
+            style={{ width: 150, height: 150 }}
+            onPress={() => {
+              setShowMap(true);
+            }}
+          >
+            <Text>Map</Text>
+          </Pressable>
+          <Map
+            showMap={showMap}
+            animals={animalGallery}
+            setShowMap={setShowMap}
+          />
         </ScrollView>
       )}
     </View>
