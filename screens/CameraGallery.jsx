@@ -29,7 +29,7 @@ const GalleryPage = () => {
   }, [user]);
 
   return (
-    <View>
+    <View style={styles.background}>
       {user && (
         <ScrollView>
           {animals.map((animal) => {
@@ -50,3 +50,9 @@ const GalleryPage = () => {
 };
 
 export default GalleryPage;
+
+const styles = StyleSheet.create({
+  background: {
+    backgroundColor: "#F2F2F2",
+  },
+})
