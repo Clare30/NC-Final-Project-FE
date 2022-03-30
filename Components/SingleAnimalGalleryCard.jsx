@@ -6,8 +6,8 @@ import { ImagePopup } from "./ImagePopup";
 export default function SingleAnimalGalleryCard({ animalName, animalUrlList, user }) {
   const [animalUrls, setAnimalUrls] = useState(animalUrlList);
   return (
-    <View>
-      {animalUrls.length && (
+    animalUrls.length !== 0 && (
+      <View>
         <View style={styles.container}>
           <Card
             containerStyle={{
@@ -35,8 +35,8 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrlList, use
             </View>
           </Card>
         </View>
-      )}
-    </View>
+      </View>
+    )
   );
 }
 

@@ -56,8 +56,8 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
     //Optimistic rendering
     setAnimalCounts((currentCount) => {
       const copyObj = { ...currentCount };
-      copyObj[animalNameLower]++;
-      copyObj.total_count ? copyObj.total_count++ : (copyObj.total_count = 1);
+      copyObj[animalNameLower]++ || (copyObj[animalNameLower] = 1);
+      copyObj.total_count++;
       return copyObj;
     });
     updateDoc(userDocCounts, updatingObjCounts);
