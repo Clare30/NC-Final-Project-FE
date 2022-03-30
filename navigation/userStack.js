@@ -11,6 +11,7 @@ import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import GalleryPage from "../screens/CameraGallery";
+
 const Drawer = createDrawerNavigator();
 
 export default function UserStack() {
@@ -30,33 +31,14 @@ export default function UserStack() {
         screenOptions={{
           headerRight: () => <ActionBarImage />,
           headerStyle: { backgroundColor: "#339999" },
+          headerTintColor: "#fff",
         }}
       >
-        <Drawer.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ unmountOnBlur: true }}
-        />
-        <Drawer.Screen
-          name="Animals"
-          component={Animals}
-          options={{ unmountOnBlur: true }}
-        />
-        <Drawer.Screen
-          name="My Badges"
-          component={Badges}
-          options={{ unmountOnBlur: true }}
-        />
-        <Drawer.Screen
-          name="Camera"
-          component={CameraPage}
-          options={{ unmountOnBlur: true }}
-        />
-        <Drawer.Screen
-          name="Gallery"
-          component={GalleryPage}
-          options={{ unmountOnBlur: true }}
-        />
+        <Drawer.Screen name="Home" component={HomeScreen} options={{ unmountOnBlur: true }} />
+        <Drawer.Screen name="Animals" component={Animals} options={{ unmountOnBlur: true }} />
+        <Drawer.Screen name="My Badges" component={Badges} options={{ unmountOnBlur: true }} />
+        <Drawer.Screen name="Camera" component={CameraPage} options={{ unmountOnBlur: true }} />
+        <Drawer.Screen name="Gallery" component={GalleryPage} options={{ unmountOnBlur: true }} />
       </Drawer.Navigator>
     </AnimalCountContext.Provider>
   );
