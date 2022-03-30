@@ -72,5 +72,5 @@ const styles = StyleSheet.create({
   countNumber: {
     color: "#fff",
     fontSize: 18
-  }
+  },
 });
