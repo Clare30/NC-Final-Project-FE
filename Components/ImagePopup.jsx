@@ -166,6 +166,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   whiteText: {
-    color: "fff",
+    color: "#fff",
   },
 });
