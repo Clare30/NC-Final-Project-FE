@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
-import {
-  ActivityIndicator,
-  View,
-  StyleSheet,
-  Dimensions,
-  Image,
-  Modal,
-} from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import * as Location from "expo-location";
 import animalImages from "../graphics/animals";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Dimensions,
+  Modal,
+  Text,
+  View,
+  Image,
+} from "react-native";
 
-export default function Map({ animals, showMap }) {
+export default function Map({ animals, showMap, setShowMap }) {
   const [location, setLocation] = useState({});
-  const [markers, setMarkers] = useState([]);
   const [errorMsg, setErrorMsg] = useState(false);
 
   useEffect(() => {
@@ -32,45 +33,46 @@ export default function Map({ animals, showMap }) {
       });
     })();
   }, []);
-  let markerArray = [];
+
   return (
     <Modal visible={showMap}>
-      {errorMsg ? (
-        errorMsg
-      ) : !location.latitude ? (
+      {!animals || !location.latitude ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <View>
-          {animals &&
-            Object.keys(animals).forEach((animal) => {
-              animals[animal].map((animalData) => {
-                console.log(animal)
-                markerArray.push({
-                  
-                  image: animal,
-                  coords: {
-                    latitude: animalData.location[0],
-                    longitude: animalData.location[1],
-                    latitudeDelta: 0.04,
-                    longitudeDelta: 0.05,
-                  },
-                });
-                if (markerArray.length === animalData.length) {
-                  setMarkers((currMarkers) => {
-                    return [...MarkerArray, ...currMarkers];
-                  });
-                }
+          <Pressable
+            onPress={() => {
+              setShowMap(false);
+            }}
+          >
+            <Text style={styles.text}>x close</Text>
+          </Pressable>
+          <MapView maxZoom={12} initialRegion={location} style={styles.map}>
+            {Object.keys(animals).map((animal) => {
+              return animals[animal].map((animalData, index) => {
+                return (
+                  <Marker
+                    key={index}
+                    coordinate={{
+                      latitude: animalData.location[0],
+                      longitude: animalData.location[1],
+                      latitudeDelta: 0.04,
+                      longitudeDelta: 0.05,
+                    }}
+                  >
+                    <Image style={styles.pin} source={animalImages[animal]} />
+                    <Callout style={styles.callOut}>
+                      <Text>
+                        <Image
+                          resizeMode="cover"
+                          style={styles.photo}
+                          source={{ uri: animalData.imageURL }}
+                        />
+                      </Text>
+                    </Callout>
+                  </Marker>
+                );
               });
-            })}
-
-          <MapView initialRegion={location} style={styles.map}>
-            {markers.map(({ image, coords }, index) => {
-              console.log(coords)
-              return (
-                <Marker key={index} coordinate={coords}>
-                  <Image style={styles.pin} source={animalImages[image]} />
-                </Marker>
-              );
             })}
           </MapView>
         </View>
@@ -87,5 +89,18 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     justifyContent: "center",
+    alignContent: "center",
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 18,
+  },
+  callOut: {
+    width: 250,
+    height: 250,
+  },
+  photo: {
+    width: 250,
+    height: 250,
   },
 });

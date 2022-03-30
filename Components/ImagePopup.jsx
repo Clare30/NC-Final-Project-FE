@@ -15,7 +15,7 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
           setModalVisible(true);
         }}
       >
-        <Image source={{ uri: imageUrl }} style={styles.image}></Image>
+        <Image source={imageUrl} style={styles.image}></Image>
       </Pressable>
 
       <Modal
