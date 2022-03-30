@@ -12,6 +12,7 @@ import bronze from "../graphics/icons/badges/bronze.png";
 import silver from "../graphics/icons/badges/silver.png";
 import gold from "../graphics/icons/badges/gold.png";
 import defaultBadge from "../graphics/icons/badges/no_badge.png";
+import backArrow from "../graphics/icons/backArrow.png";
 
 export default function CameraPopup({ setCameraModalVisible, cameraModalVisible, uri, base64 }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -64,10 +65,10 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
             <Pressable
               onPress={() => {
                 setCameraModalVisible(false);
-                setIsMatch(false);
+                  setIsMatch(false);
               }}
             >
-              <MaterialCommunityIcons name="close" size={24} color="black" />
+              <Image source={backArrow} style={styles.backArrow} />
             </Pressable>
             <Heading style={styles.text}>It's a {isMatch}!</Heading>
             <Image style={styles.image} source={{ uri }} />
@@ -165,5 +166,9 @@ const styles = StyleSheet.create({
   animalImage: {
     width: 100,
     height: 100,
+  },
+  backArrow: {
+    height: 50,
+    width: 50,
   },
 });
