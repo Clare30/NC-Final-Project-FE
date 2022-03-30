@@ -1,7 +1,8 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import animalImages from "../graphics/animals";
 import FunFacts from "./FunFacts";
+import { Text } from "native-base";
 
 export default function AnimalCard({ animal }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -14,7 +15,9 @@ export default function AnimalCard({ animal }) {
       style={styles.container}
     >
       <View style={styles.card}>
-        <Text style={styles.text}>{animal.name}</Text>
+        <Text fontFamily="body" fontWeight={500} style={styles.text}>
+          {animal.name}
+        </Text>
         <Image style={styles.animalImage} source={animalImages[animal.name]} resizeMode="cover" />
       </View>
 

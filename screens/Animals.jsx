@@ -1,7 +1,9 @@
-import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, View, ScrollView, Dimensions, ImageBackground } from "react-native";
 import React, { useEffect, useState } from "react";
 import AnimalCard from "../Components/AnimalCard";
 import getAllAnimals from "../firestoreCalls/animals/firestore.animals";
+import splashMainBackground from "../graphics/scenes/sign-in-up-backdrop.png";
+import { Text } from "native-base";
 
 export default function Animals() {
   const [animals, setAnimals] = useState([]);
@@ -12,20 +14,24 @@ export default function Animals() {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.control}>
-        <Text style={styles.text}>ANI-DEX</Text>
+      <ImageBackground style={styles.splashBackground} resizeMode="cover" source={splashMainBackground}>
+        <ScrollView style={styles.control}>
+          <Text fontFamily="body" fontWeight={600} style={styles.text}>
+            ANI-DEX
+          </Text>
 
-        {Object.keys(animals).map((animal) => {
-          return <AnimalCard key={animal} animal={animals[animal]} />;
-        })}
-      </ScrollView>
+          {Object.keys(animals).map((animal) => {
+            return <AnimalCard key={animal} animal={animals[animal]} />;
+          })}
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 0,
     backgroundColor: "#F2F2F2",
     alignItems: "center",
     justifyContent: "center",
@@ -39,7 +45,17 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     textTransform: "uppercase",
-    fontWeight: "600",
+    // fontWeight: "600",
     marginBottom: 20,
+    marginTop: 20,
+    color: "#fff",
+    fontSize: 20,
+  },
+
+  splashBackground: {
+    flex: 1,
+    alignContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
