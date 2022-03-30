@@ -1,23 +1,7 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  Image,
-  Modal,
-  Pressable,
-  StyleSheet,
-  Dimensions,
-} from "react-native";
+import { Text, View, Image, Modal, Pressable, StyleSheet, Dimensions } from "react-native";
 import deleteImage from "../firestoreCalls/users/firestore.deleteImage";
-import SingleAnimalGalleryCard from "./SingleAnimalGalleryCard";
-
-export const ImagePopup = ({
-  imageUrl,
-  index,
-  user,
-  animalName,
-  setAnimalUrls,
-}) => {
+export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
