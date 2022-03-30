@@ -8,11 +8,9 @@ import {
   Center,
   FormControl,
   Heading,
-  HStack,
   VStack,
   Button,
   Input,
-  Link,
   Text,
 } from "native-base";
 import signInBackground from "../graphics/scenes/sign-in-up-backdrop.png";
