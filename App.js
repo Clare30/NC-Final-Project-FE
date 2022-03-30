@@ -10,6 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 
 import CustomTheme from "./CustomTheme";
+import { LogBox } from "react-native";
 
 import {
   useFonts,
@@ -21,6 +22,8 @@ import {
 } from "@expo-google-fonts/open-sans/";
 
 export default function App() {
+
+
   let [fontsLoaded] = useFonts({
     OpenSans_300Light,
     OpenSans_400Regular,
