@@ -35,10 +35,10 @@ export default function UserStack() {
         }}
       >
         <Drawer.Screen name="Home" component={HomeScreen} options={{ unmountOnBlur: true }} />
-        <Drawer.Screen name="Animals" component={Animals} options={{ unmountOnBlur: true }} />
+        <Drawer.Screen name="Ani-Dex" component={Animals} options={{ unmountOnBlur: true }} />
+        <Drawer.Screen name="Take Photo" component={CameraPage} options={{ unmountOnBlur: true }} />
+        <Drawer.Screen name="My Animon" component={GalleryPage} options={{ unmountOnBlur: true }} />
         <Drawer.Screen name="My Badges" component={Badges} options={{ unmountOnBlur: true }} />
-        <Drawer.Screen name="Camera" component={CameraPage} options={{ unmountOnBlur: true }} />
-        <Drawer.Screen name="Gallery" component={GalleryPage} options={{ unmountOnBlur: true }} />
       </Drawer.Navigator>
     </AnimalCountContext.Provider>
   );
