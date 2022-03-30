@@ -1,8 +1,9 @@
-import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, Dimensions, Button } from "react-native";
+import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, Dimensions, Button, Pressable } from "react-native";
 import { Camera } from "expo-camera";
 import { useEffect, useState } from "react/cjs/react.development";
 import CameraPopup from "../Components/CameraPopup";
 import { manipulateAsync } from "expo-image-manipulator";
+import { Entypo } from "@expo/vector-icons";
 
 function CameraPage({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -44,23 +45,16 @@ function CameraPage({ navigation }) {
   }
   return (
     <SafeAreaView>
-      <Camera style={styles.camera} type={type} ref={setCamera}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setType(Camera.Constants.Type.back);
-            }}
-          >
-            <Button
-              title="📸 Take picture 📸"
-              onPress={() => {
-                snapPhoto();
-              }}
-            ></Button>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+      <Camera style={styles.camera} type={type} ref={setCamera}></Camera>
+      <View style={styles.buttonContainer}>
+        <Pressable
+          onPress={() => {
+            snapPhoto();
+          }}
+        >
+          <Entypo name="camera" size={34} color="white" style={styles.takePhoto} />
+        </Pressable>
+      </View>
 
       <CameraPopup cameraModalVisible={cameraModalVisible} setCameraModalVisible={setCameraModalVisible} uri={imageUri} base64={base64} />
     </SafeAreaView>
@@ -80,8 +74,12 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: "transparent",
-    flexDirection: "column-reverse",
-    margin: 20,
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+    margin: 40,
   },
   button: {
     alignSelf: "flex-end",
@@ -93,6 +91,15 @@ const styles = StyleSheet.create({
   },
   control: {
     marginTop: 10,
+  },
+  takePhoto: {
+    backgroundColor: "#339999",
+    borderRadius: 50,
+    padding: 20,
+  },
+  pressable: {
+    height: 50,
+    width: 50,
   },
 });
 
