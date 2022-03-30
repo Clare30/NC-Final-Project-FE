@@ -15,18 +15,10 @@ export default function AnimalCard({ animal }) {
     >
       <View style={styles.card}>
         <Text style={styles.text}>{animal.name}</Text>
-        <Image
-          style={styles.animalImage}
-          source={animalImages[animal.name]}
-          resizeMode="cover"
-        />
+        <Image style={styles.animalImage} source={animalImages[animal.name]} resizeMode="cover" />
       </View>
 
-      <FunFacts
-        animal={animal}
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-      />
+      <FunFacts animal={animal} modalVisible={modalVisible} setModalVisible={setModalVisible} />
     </View>
   );
 }
@@ -69,5 +61,5 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontWeight: "600",
     marginLeft: 40,
-  }
+  },
 });

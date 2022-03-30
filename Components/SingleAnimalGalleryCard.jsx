@@ -3,15 +3,11 @@ import { Text, View, StyleSheet } from "react-native";
 import { Card } from "react-native-elements";
 import { ImagePopup } from "./ImagePopup";
 
-export default function SingleAnimalGalleryCard({
-  animalName,
-  animalUrlList,
-  user,
-}) {
+export default function SingleAnimalGalleryCard({ animalName, animalUrlList, user }) {
   const [animalUrls, setAnimalUrls] = useState(animalUrlList);
   return (
     <View>
-      {animalUrls && (
+      {animalUrls.length && (
         <View style={styles.container}>
           <Card
             containerStyle={{

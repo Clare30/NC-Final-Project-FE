@@ -42,16 +42,9 @@ function CameraPage({ navigation }) {
       });
     }
   }
-
   return (
     <SafeAreaView>
-      <Camera
-        style={styles.camera}
-        type={type}
-        //ref causes an error when working with live code so you will have to restart your connection to the app
-        //Not yet found an alternative that works
-        ref={setCamera}
-      >
+      <Camera style={styles.camera} type={type} ref={setCamera}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -83,7 +76,6 @@ const styles = StyleSheet.create({
     marginTop: 0,
 
     width: Dimensions.get("window").width,
-    // height: 300,
     height: Dimensions.get("window").width * 1.3333,
   },
   buttonContainer: {
@@ -92,7 +84,6 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   button: {
-    // flex: 0.1,
     alignSelf: "flex-end",
     alignItems: "center",
   },
