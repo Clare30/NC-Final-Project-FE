@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, Dimensions } from "react-native";
 import BadgeCard from "../Components/BadgeCard";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import animals from "../graphics/animals";
+
 export default function Badges() {
   const { animalCounts: counts } = useContext(AnimalCountContext);
   return (
@@ -10,7 +11,13 @@ export default function Badges() {
       {counts && (
         <ScrollView style={styles.control}>
           {Object.keys(animals).map((count) => {
-            if (count !== "total_count") return <BadgeCard key={count} count={{ count: counts[count] || 0, name: count }} />;
+            if (count !== "total_count")
+              return (
+                <BadgeCard
+                  key={count}
+                  count={{ count: counts[count] || 0, name: count }}
+                />
+              );
           })}
         </ScrollView>
       )}
