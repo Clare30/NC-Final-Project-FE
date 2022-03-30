@@ -24,11 +24,11 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrlList, use
                 return (
                   <ImagePopup
                     setAnimalUrls={setAnimalUrls}
-                    imageUrl={animalUrl}
+                    imageUrl={animalUrl.imageURL}
                     index={index}
                     user={user}
                     animalName={animalName}
-                    key={animalUrl}
+                    key={animalUrl.imageURL}
                   />
                 );
               })}

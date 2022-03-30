@@ -11,11 +11,6 @@ import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import GalleryPage from "../screens/CameraGallery";
-<<<<<<< HEAD
-import Map from "../screens/Map";
-=======
-
->>>>>>> 078464eb7b5833580a065a4d676eccaf992f05b2
 const Drawer = createDrawerNavigator();
 
 export default function UserStack() {

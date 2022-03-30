@@ -4,7 +4,7 @@ import deleteImage from "../firestoreCalls/users/firestore.deleteImage";
 export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-
+console.log(imageUrl)
   return (
     <View key={index} style={styles.box}>
       <Pressable
