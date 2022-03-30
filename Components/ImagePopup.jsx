@@ -4,7 +4,7 @@ import deleteImage from "../firestoreCalls/users/firestore.deleteImage";
 export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-console.log(imageUrl)
+
   return (
     <View key={index} style={styles.box}>
       <Pressable
@@ -13,7 +13,7 @@ console.log(imageUrl)
           setModalVisible(true);
         }}
       >
-        <Image source={imageUrl} style={styles.image}></Image>
+        <Image source={{ uri: imageUrl.imageURL }} style={styles.image}></Image>
       </Pressable>
       <Modal
         style={styles.modalView}
@@ -73,7 +73,7 @@ console.log(imageUrl)
               </View>
             </View>
           </Modal>
-          <Image source={{ uri: imageUrl }} style={styles.modalImage}></Image>
+          <Image source={{ uri: imageUrl.imageURL }} style={styles.modalImage}></Image>
           <Pressable
             onPress={() => {
               setDeleteModalVisible(true);

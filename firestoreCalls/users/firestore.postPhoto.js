@@ -1,5 +1,6 @@
 import { arrayUnion, doc, increment, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import * as Location from "expo-location";
 import db from "../../config/firestore";
 import animals from "../../graphics/animals";
 export default async function postPhoto(uid, uri, base64, animalCounts, setAnimalCounts, setIsMatch) {

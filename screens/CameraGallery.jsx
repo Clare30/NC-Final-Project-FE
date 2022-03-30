@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, StyleSheet, Pressable } from "react-native";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import { View, ScrollView, StyleSheet, Pressable } from "react-native";
+import { VStack, Text } from "native-base";
+import { getAuth } from "firebase/auth";
 import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import getAnimalsByUserId from "../firestoreCalls/users/firestore.animalsByUser";
 import SingleAnimalGalleryCard from "../Components/SingleAnimalGalleryCard";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
+import { Entypo } from "@expo/vector-icons";
+
 import Map from "./Map";
 
 const GalleryPage = () => {
@@ -21,9 +23,7 @@ const GalleryPage = () => {
         setAnimalGallery(data);
       });
       getAnimalCounts(user).then((data) => {
-        const allCounts = Object.entries(data).filter(
-          (arr) => "total_count" !== arr[0]
-        );
+        const allCounts = Object.entries(data).filter((arr) => "total_count" !== arr[0]);
         setAnimals(allCounts);
       });
     }
@@ -33,30 +33,23 @@ const GalleryPage = () => {
     <View style={styles.background}>
       {user && (
         <ScrollView>
-          {animals.map((animal) => {
-            if (animalGallery[animal[0]] && animalGallery[animal[0]].length)
-              return (
-                <SingleAnimalGalleryCard
-                  key={animal[0]}
-                  animalName={animal[0]}
-                  animalUrlList={animalGallery[animal[0]]}
-                  user={user}
-                />
-              );
-          })}
           <Pressable
-            style={{ width: 150, height: 150 }}
             onPress={() => {
               setShowMap(true);
             }}
           >
-            <Text>Map</Text>
+            <VStack mt="4">
+              <Text>View Map</Text>
+              <Entypo name="map" size={30} color="#339999" />
+            </VStack>
           </Pressable>
-          <Map
-            showMap={showMap}
-            animals={animalGallery}
-            setShowMap={setShowMap}
-          />
+          <Map showMap={showMap} animals={animalGallery} setShowMap={setShowMap} />
+          {animals.map((animal) => {
+            if (animalGallery[animal[0]] && animalGallery[animal[0]].length)
+              return (
+                <SingleAnimalGalleryCard key={animal[0]} animalName={animal[0]} animalUrlList={animalGallery[animal[0]]} user={user} />
+              );
+          })}
         </ScrollView>
       )}
     </View>
@@ -69,4 +62,8 @@ const styles = StyleSheet.create({
   background: {
     backgroundColor: "#F2F2F2",
   },
-})
+  map: {
+    alignContent: "center",
+    justifyContent: "center",
+  },
+});

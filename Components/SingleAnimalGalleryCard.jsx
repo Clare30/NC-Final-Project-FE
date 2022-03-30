@@ -24,7 +24,7 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrlList, use
                 return (
                   <ImagePopup
                     setAnimalUrls={setAnimalUrls}
-                    imageUrl={animalUrl.imageURL}
+                    imageUrl={animalUrl}
                     index={index}
                     user={user}
                     animalName={animalName}

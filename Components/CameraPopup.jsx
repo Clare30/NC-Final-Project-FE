@@ -5,7 +5,7 @@ import postPhoto from "../firestoreCalls/users/firestore.postPhoto";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { useContext, useState } from "react";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
-import { MaterialCommunityIcons, Fontisto, AntDesign, Feather, Entypo } from "@expo/vector-icons";
+import { Fontisto, AntDesign, Feather, Entypo } from "@expo/vector-icons";
 import { HStack, Pressable, useToast, Heading } from "native-base";
 import animalImages from "../graphics/animals";
 import bronze from "../graphics/icons/badges/bronze.png";
@@ -65,7 +65,7 @@ export default function CameraPopup({ setCameraModalVisible, cameraModalVisible,
             <Pressable
               onPress={() => {
                 setCameraModalVisible(false);
-                  setIsMatch(false);
+                setIsMatch(false);
               }}
             >
               <Image source={backArrow} style={styles.backArrow} />
