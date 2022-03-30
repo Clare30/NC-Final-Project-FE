@@ -6,8 +6,8 @@ import {
   Image,
   View,
 } from "react-native";
-import splashMainBackground from "../assets/background.png";
-import playButton from "../assets/playButton.png";
+import splashMainBackground from "../graphics/scenes/play-backdrop.png";
+import playButton from "../graphics/icons/buttons/home_play.png";
 import FadeInAnimation from "../Components/FadeInAnimation";
 
 const PlayButton = ({ navigation }) => {

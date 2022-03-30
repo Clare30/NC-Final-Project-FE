@@ -16,13 +16,14 @@ export default function ActionBarImage() {
   useEffect(() => {
     const newBadgeCount = { bronze: 0, silver: 0, gold: 0 };
     Object.keys(counts).forEach((count) => {
-      if (counts[count] >= 10) {
-        newBadgeCount.gold++;
-      } else if (counts[count] >= 5) {
-        newBadgeCount.silver++;
-      } else if (counts[count] >= 1) {
-        newBadgeCount.bronze++;
-      }
+      if (count !== "total_count")
+        if (counts[count] >= 10) {
+          newBadgeCount.gold++;
+        } else if (counts[count] >= 5) {
+          newBadgeCount.silver++;
+        } else if (counts[count] >= 1) {
+          newBadgeCount.bronze++;
+        }
     });
     setBadgeCount(newBadgeCount);
   }, [counts]);
