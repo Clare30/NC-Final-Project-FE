@@ -107,8 +107,9 @@ const LoginScreen = ({ navigation }) => {
                 </Center>
               </ImageBackground>
             </Center>
-            <VStack mt="2" textAlign="center" alignContent="center">
+            <VStack mt="2">
               <Text
+                textAlign="center"
                 fontSize="sm"
                 color="coolGray.600"
                 _dark={{
@@ -121,6 +122,7 @@ const LoginScreen = ({ navigation }) => {
                 onPress={() => {
                   navigation.navigate("Sign Up");
                 }}
+                textAlign="center"
                 color="warmGray.200"
                 fontWeight="bold"
                 fontSize="sm"
