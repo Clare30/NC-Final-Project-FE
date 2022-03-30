@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Text, View, Image, Modal, Pressable, StyleSheet, Dimensions } from "react-native";
+import { View, Image, Modal, Pressable, StyleSheet, Dimensions } from "react-native";
 import deleteImage from "../firestoreCalls/users/firestore.deleteImage";
 import { MaterialCommunityIcons, Fontisto, AntDesign, Feather, Entypo } from "@expo/vector-icons";
-import { HStack, useToast } from "native-base";
+import { HStack, useToast, Text } from "native-base";
 
 export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -35,7 +35,9 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
             }}
           >
             <View style={styles.button}>
-              <Text style={styles.whiteText}>Close</Text>
+              <Text fontFamily="body" fontWeight={600} style={styles.whiteText}>
+                Close
+              </Text>
             </View>
           </Pressable>
 
@@ -49,7 +51,7 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
             }}
           >
             <View style={styles.modalView}>
-              <Text>Are you sure you want to delete this photo?</Text>
+              <Text fontFamily="body">Are you sure you want to delete this photo?</Text>
               <View style={styles.flexContainer}>
                 <HStack space={10} mt="4">
                   <Pressable
@@ -75,7 +77,7 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
                       setDeleteModalVisible(false);
                     }}
                   >
-                    <Entypo name="cross" size={28} color="#339999" />
+                    <Entypo name="cross" size={30} color="#339999" />
                   </Pressable>
                 </HStack>
               </View>
@@ -124,6 +126,7 @@ const styles = StyleSheet.create({
     width: 135,
     height: 135,
     borderRadius: 5,
+    margin: 5,
   },
   modalImage: {
     width: Dimensions.get("window").width * 0.75,
