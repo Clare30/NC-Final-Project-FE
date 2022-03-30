@@ -15,7 +15,7 @@ export default function Home({ navigation }) {
         <View style={{ paddingTop: 75 }}>
           <Pressable
             onPress={() => {
-              navigation.navigate("Animals");
+              navigation.navigate("Ani-Dex");
             }}
           >
             <Image source={buttons.anidex} style={styles.navButtons} />
@@ -23,7 +23,7 @@ export default function Home({ navigation }) {
 
           <Pressable
             onPress={() => {
-              navigation.navigate("Camera");
+              navigation.navigate("Take Photo");
             }}
           >
             <Image source={buttons.takePhoto} style={styles.navButtons} />
@@ -31,7 +31,7 @@ export default function Home({ navigation }) {
 
           <Pressable
             onPress={() => {
-              navigation.navigate("Gallery");
+              navigation.navigate("My Animon");
             }}
           >
             <Image source={buttons.myAnimon} style={styles.navButtons} />
