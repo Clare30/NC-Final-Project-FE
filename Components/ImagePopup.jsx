@@ -16,7 +16,7 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
           setModalVisible(true);
         }}
       >
-        <Image source={{ uri: imageUrl }} style={styles.image}></Image>
+        <Image source={{ uri: imageUrl.imageURL }} style={styles.image}></Image>
       </Pressable>
       <Modal
         style={styles.modalView}
@@ -83,7 +83,7 @@ export const ImagePopup = ({ imageUrl, index, user, animalName, setAnimalUrls })
               </View>
             </View>
           </Modal>
-          <Image source={{ uri: imageUrl }} style={styles.modalImage}></Image>
+          <Image source={{ uri: imageUrl.imageURL }} style={styles.modalImage}></Image>
           <Pressable
             onPress={() => {
               setDeleteModalVisible(true);

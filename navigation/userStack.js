@@ -11,12 +11,12 @@ import getAnimalCounts from "../firestoreCalls/users/firestore.animalCounts";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import GalleryPage from "../screens/CameraGallery";
-
 const Drawer = createDrawerNavigator();
 
 export default function UserStack() {
   const { user } = useAuthentication();
   const [animalCounts, setAnimalCounts] = useState({});
+
   useEffect(() => {
     if (user)
       getAnimalCounts(user).then((data) => {

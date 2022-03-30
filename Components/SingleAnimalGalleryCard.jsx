@@ -29,7 +29,7 @@ export default function SingleAnimalGalleryCard({ animalName, animalUrlList, use
                     index={index}
                     user={user}
                     animalName={animalName}
-                    key={animalUrl}
+                    key={animalUrl.imageURL}
                   />
                 );
               })}

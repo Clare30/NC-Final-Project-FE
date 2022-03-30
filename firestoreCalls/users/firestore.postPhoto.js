@@ -1,5 +1,6 @@
 import { arrayUnion, doc, increment, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import * as Location from "expo-location";
 import db from "../../config/firestore";
 import animals from "../../graphics/animals";
 export default async function postPhoto(uid, uri, base64, animalCounts, setAnimalCounts, setIsMatch) {
@@ -60,10 +61,12 @@ export default async function postPhoto(uid, uri, base64, animalCounts, setAnima
       copyObj.total_count++;
       return copyObj;
     });
+    const { coords } = await Location.getCurrentPositionAsync();
+    const location = [coords.latitude, coords.longitude];
     updateDoc(userDocCounts, updatingObjCounts);
     const userDocPhotos = doc(db, "users", uid, "animals", "photos");
     const updatingObjPhotos = {};
-    updatingObjPhotos[animalNameLower] = arrayUnion(imageURL);
+    updatingObjPhotos[animalNameLower] = arrayUnion({ imageURL, location });
     updateDoc(userDocPhotos, updatingObjPhotos);
   };
 
