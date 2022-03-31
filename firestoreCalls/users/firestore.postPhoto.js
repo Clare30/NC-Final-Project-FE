@@ -4,6 +4,7 @@ import * as Location from "expo-location";
 import db from "../../config/firestore";
 import animals from "../../graphics/animals";
 export default async function postPhoto(uid, uri, base64, animalCounts, setAnimalCounts, setIsMatch) {
+  await Location.requestForegroundPermissionsAsync();
   const uploadAndGetURL = async (uid, uri) => {
     const storage = getStorage();
     const response = await fetch(uri);

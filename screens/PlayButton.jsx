@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
   },
 
   playButton: {
-    height: 200,
-    width: 200,
-    marginRight: 100,
+    height: 180,
+    width: 180,
+    marginRight: 140,
   },
 });
 export default PlayButton;

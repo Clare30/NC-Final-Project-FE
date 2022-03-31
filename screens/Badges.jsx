@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, ScrollView, Dimensions, ImageBackground } from "react-native";
+import { StyleSheet, View, ScrollView, Dimensions, ImageBackground, SafeAreaView } from "react-native";
 import BadgeCard from "../Components/BadgeCard";
 import { AnimalCountContext } from "../Contexts/AnimalCountContext";
 import splashMainBackground from "../graphics/scenes/sign-in-up-backdrop.png";
@@ -9,7 +9,7 @@ import animals from "../graphics/animals";
 export default function Badges() {
   const { animalCounts: counts } = useContext(AnimalCountContext);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ImageBackground style={styles.splashBackground} resizeMode="cover" source={splashMainBackground}>
         {counts && (
           <ScrollView style={styles.control}>
@@ -19,7 +19,7 @@ export default function Badges() {
           </ScrollView>
         )}
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 
